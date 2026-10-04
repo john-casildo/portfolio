@@ -25,6 +25,18 @@ test('hero CTA scrolls to work section', async ({page}) => {
 
 test.describe('phone width', () => {
   test.use({viewport: {width: 375, height: 812}});
+  for (const [locale, contact] of [['en', 'Contact'], ['es', 'Contacto']] as const) {
+    test(`${locale} section nav is reachable on phones`, async ({page}) => {
+      await page.goto(`/${locale}`);
+      const link = page.getByRole('navigation').getByRole('link', {name: contact});
+      await expect(link).toBeVisible();
+      await link.click();
+      await expect(page).toHaveURL(/#contact$/);
+      const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
+      expect(overflow).toBeLessThanOrEqual(0);
+    });
+  }
+
   test('no horizontal scroll', async ({page}) => {
     for (const locale of ['en', 'es']) {
       await page.goto(`/${locale}`);

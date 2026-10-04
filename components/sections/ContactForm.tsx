@@ -1,6 +1,6 @@
 'use client';
 
-import {useState, type FormEvent, type ReactNode} from 'react';
+import {useEffect, useState, type FormEvent, type ReactNode} from 'react';
 import {useTranslations} from 'next-intl';
 import {buttonClass} from '@/components/ui/button';
 import {contactSchema, fieldErrors, type ContactField} from '@/lib/contact-schema';
@@ -14,6 +14,9 @@ export function ContactForm({directLinks}: {directLinks: ReactNode}) {
   const t = useTranslations('Contact');
   const [status, setStatus] = useState<Status>('idle');
   const [errors, setErrors] = useState<ContactField[]>([]);
+  // Until hydration a click would trigger a native GET submit that puts the message in the URL.
+  const [hydrated, setHydrated] = useState(false);
+  useEffect(() => setHydrated(true), []);
 
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -78,7 +81,7 @@ export function ContactForm({directLinks}: {directLinks: ReactNode}) {
           <input name="company" type="text" tabIndex={-1} autoComplete="off" />
         </label>
       </div>
-      <button type="submit" disabled={status === 'sending'} className={`${buttonClass('primary')} w-fit disabled:opacity-60`}>
+      <button type="submit" disabled={!hydrated || status === 'sending'} className={`${buttonClass('primary')} w-fit disabled:opacity-60`}>
         {status === 'sending' ? t('sending') : t('send')}
       </button>
       <div role="status" aria-live="polite">

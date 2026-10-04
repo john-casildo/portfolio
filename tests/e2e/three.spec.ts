@@ -86,3 +86,52 @@ test.describe('phone width', () => {
     expect(overflow).toBeLessThanOrEqual(0);
   });
 });
+
+test('WebGL1-only browsers get the static art instead of crashing', async ({page}) => {
+  const errors = collectErrors(page);
+  await page.addInitScript(() => {
+    const original = HTMLCanvasElement.prototype.getContext;
+    HTMLCanvasElement.prototype.getContext = function (this: HTMLCanvasElement, type: string, ...rest: unknown[]) {
+      if (type === 'webgl2') return null;
+      return Reflect.apply(original, this, [type, ...rest]);
+    } as typeof original;
+  });
+  await page.goto('/en');
+  for (let i = 1; i <= 10; i++) await page.mouse.move(50 + i * 9, 50 + i * 7);
+  await page.waitForTimeout(1500);
+  await expect(page.getByRole('heading', {level: 1})).toBeVisible();
+  await expect(page.getByTestId('hero-fallback')).toBeVisible();
+  await expect(page.getByTestId('bg-fallback')).toBeAttached();
+  expect(errors.filter((e) => !e.includes('WebGL'))).toEqual([]);
+});
+
+test('a failing WebGL context after the probe falls back instead of crashing', async ({page}) => {
+  await page.addInitScript(() => {
+    const original = HTMLCanvasElement.prototype.getContext;
+    let webglCalls = 0;
+    HTMLCanvasElement.prototype.getContext = function (this: HTMLCanvasElement, type: string, ...rest: unknown[]) {
+      if (type.includes('webgl') && ++webglCalls > 1) return null;
+      return Reflect.apply(original, this, [type, ...rest]);
+    } as typeof original;
+  });
+  await page.goto('/en');
+  for (let i = 1; i <= 10; i++) await page.mouse.move(50 + i * 9, 50 + i * 7);
+  await page.waitForTimeout(1500);
+  await expect(page.getByRole('heading', {level: 1})).toBeVisible();
+  await expect(page.getByTestId('hero-fallback')).toBeVisible();
+  await expect(page.getByTestId('bg-fallback')).toBeAttached();
+});
+
+test('no WebGL context is created before the first interaction', async ({page}) => {
+  await page.addInitScript(() => {
+    const original = HTMLCanvasElement.prototype.getContext;
+    (window as unknown as {glCalls: number}).glCalls = 0;
+    HTMLCanvasElement.prototype.getContext = function (this: HTMLCanvasElement, type: string, ...rest: unknown[]) {
+      if (type.includes('webgl')) (window as unknown as {glCalls: number}).glCalls++;
+      return Reflect.apply(original, this, [type, ...rest]);
+    } as typeof original;
+  });
+  await page.goto('/en');
+  await page.waitForTimeout(1500);
+  expect(await page.evaluate(() => (window as unknown as {glCalls: number}).glCalls)).toBe(0);
+});
