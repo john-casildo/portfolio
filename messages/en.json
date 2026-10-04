@@ -19,7 +19,8 @@
     "valueProp": "Websites and web apps that look great, load fast, and actually work — built end to end.",
     "ctaWork": "See work",
     "ctaContact": "Let's talk",
-    "mascotAlt": "Masked hero in a black and red suit hanging upside down from a web"
+    "mascotAlt": "John Casildo as a comic sticker — change pose",
+    "tapHint": "click me!"
   },
   "Services": {
     "tag": "select your mode",
@@ -87,8 +88,7 @@
     "cta": "Continue? Back to home"
   },
   "Footer": {
-    "rights": "All rights reserved.",
-    "fanArt": "Fan art. Not affiliated with Marvel or Sony."
+    "rights": "All rights reserved."
   },
   "Ticker": {
     "text": "JOHN CASILDO ✱ WEB DEV ✱ SITES ✱ WEB APPS ✱ BACKENDS ✱ COSTA RICA ✱"

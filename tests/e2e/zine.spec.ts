@@ -3,23 +3,18 @@ import {expect, test} from '@playwright/test';
 // Whole words only: decorative lettering like "SMILE" drawn twice reads "SMILESMILE".
 const EXCLUDED = /\b(spider|miles|morales|marvel|sony)\b/i;
 
-for (const [locale, line] of [
-  ['en', 'Fan art. Not affiliated with Marvel or Sony.'],
-  ['es', 'Fan art. Sin afiliación con Marvel o Sony.'],
-] as const) {
-  test(`${locale}: fan-art line in footer, names nowhere else`, async ({page}) => {
+for (const locale of ['en', 'es']) {
+  test(`${locale}: no third-party character names anywhere`, async ({page}) => {
     await page.goto(`/${locale}`);
-    await expect(page.locator('footer')).toContainText(line);
     const head = await page.evaluate(() => document.head.innerHTML);
     expect(head).not.toMatch(EXCLUDED);
-    const outsideFooter = await page.evaluate(() => {
+    const body = await page.evaluate(() => {
       const clone = document.body.cloneNode(true) as HTMLElement;
-      clone.querySelector('footer')?.remove();
       clone.querySelectorAll('script, style, template').forEach((el) => el.remove());
-      const alts = Array.from(clone.querySelectorAll('[alt],[aria-label]')).map((el) => `${el.getAttribute('alt') ?? ''} ${el.getAttribute('aria-label') ?? ''}`);
-      return `${clone.innerText} ${alts.join(' ')}`;
+      const labels = Array.from(clone.querySelectorAll('[alt],[aria-label]')).map((el) => `${el.getAttribute('alt') ?? ''} ${el.getAttribute('aria-label') ?? ''}`);
+      return `${clone.innerText} ${labels.join(' ')}`;
     });
-    expect(outsideFooter).not.toMatch(EXCLUDED);
+    expect(body).not.toMatch(EXCLUDED);
   });
 }
 

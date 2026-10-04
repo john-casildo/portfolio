@@ -19,7 +19,8 @@
     "valueProp": "Sitios y aplicaciones web que se ven bien, cargan rápido y funcionan de verdad — de principio a fin.",
     "ctaWork": "Ver proyectos",
     "ctaContact": "Hablemos",
-    "mascotAlt": "Héroe enmascarado con traje negro y rojo colgando de cabeza de una telaraña"
+    "mascotAlt": "John Casildo como sticker de cómic — cambiar pose",
+    "tapHint": "¡dale clic!"
   },
   "Services": {
     "tag": "elige tu modo",
@@ -87,8 +88,7 @@
     "cta": "¿Continuar? Volver al inicio"
   },
   "Footer": {
-    "rights": "Todos los derechos reservados.",
-    "fanArt": "Fan art. Sin afiliación con Marvel o Sony."
+    "rights": "Todos los derechos reservados."
   },
   "Ticker": {
     "text": "JOHN CASILDO ✱ DESARROLLO WEB ✱ SITIOS ✱ APPS WEB ✱ BACKENDS ✱ COSTA RICA ✱"

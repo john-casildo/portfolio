@@ -50,6 +50,9 @@ body {
 .peel { transform: rotate(var(--tilt, 0deg)); transition: transform 180ms ease; }
 .peel:hover { transform: rotate(var(--tilt, 0deg)) translateY(-4px) scale(1.06); }
 
+.pose-pop { animation: pose-pop 250ms steps(3, end); transform-box: fill-box; transform-origin: 50% 100%; }
+@keyframes pose-pop { 0% { transform: scale(0.92) rotate(-2deg); } 50% { transform: scale(1.04) rotate(1deg); } 100% { transform: none; } }
+
 .ticker { overflow: hidden; }
 .ticker-track { animation: ticker 40s linear infinite; }
 .ticker:hover .ticker-track { animation-play-state: paused; }
