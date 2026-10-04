@@ -132,8 +132,8 @@ export function GraffitiWall() {
       }}
     >
       <ThrowUp text="WEB DEV" fill={RED} shade={YELLOW} tilt={-4} className="left-1/2 top-1/2 w-[86%] max-w-[760px] -translate-x-1/2 -translate-y-1/2 sm:w-[64%]" />
-      <Tag text="jc" color={WHITE} crown tilt={-10} className="left-[4%] top-3 w-20 sm:w-28" />
-      <Tag text="san jose" color={LIME} tilt={6} className="bottom-2 right-[4%] w-36 sm:w-52" />
+      <Tag text="JC" color={WHITE} crown tilt={-10} className="left-[4%] top-3 w-20 sm:w-28" />
+      <Tag text="Costa Rica" color={LIME} tilt={6} className="bottom-2 right-[4%] w-36 sm:w-52" />
       <Tag text="code kid" color={PINK} tilt={-6} className="bottom-3 left-[6%] hidden w-44 sm:block" />
       <Tag text="2026" color={CYAN} tilt={8} className="right-[8%] top-3 w-24 sm:w-32" />
       <ThrowUp text="CR" fill={CYAN} shade={PINK} tilt={10} className="right-[22%] top-2 hidden w-24 lg:block" />
