@@ -4,7 +4,7 @@ import {SectionHeading} from '@/components/ui/SectionHeading';
 import {buttonClass} from '@/components/ui/button';
 import {site} from '@/lib/site';
 import {TornEdge} from '@/components/zine/TornEdge';
-import {Doodle} from '@/components/zine/Doodle';
+import {Sticker} from '@/components/zine/Sticker';
 import {NumberSticker} from '@/components/zine/NumberSticker';
 
 
@@ -13,7 +13,8 @@ export async function About() {
   return (
     <section id="about" data-section aria-labelledby="about-title" className="relative overflow-hidden py-10">
       <NumberSticker n={4} className="absolute left-4 top-4 z-10" />
-      <Doodle kind="crown" color="red" className="absolute right-8 top-12 z-10 w-14" />
+      <Sticker kind="spray-can" tilt={14} className="right-10 top-16 z-10 hidden w-24 md:block" />
+      <Sticker kind="year" tilt={-6} className="bottom-16 right-44 z-10 hidden w-24 md:block" />
       <div className="relative text-[#E6E1D6]">
         <TornEdge position="top" />
         <div className="bg-[#E6E1D6] text-ink">

@@ -47,6 +47,9 @@ body {
 }
 .btn-press:active { transform: translateY(3px); box-shadow: 0 0 0 var(--color-ink); }
 
+.peel { transform: rotate(var(--tilt, 0deg)); transition: transform 180ms ease; }
+.peel:hover { transform: rotate(var(--tilt, 0deg)) translateY(-4px) scale(1.06); }
+
 .ticker { overflow: hidden; }
 .ticker-track { animation: ticker 40s linear infinite; }
 .ticker:hover .ticker-track { animation-play-state: paused; }
@@ -61,4 +64,5 @@ body {
   [data-reveal]:not(.tilt-l):not(.tilt-r) { transform: none !important; }
   .btn-press, .tilt-l, .tilt-r { transition: none; }
   .ticker-track { animation: none; }
+  .peel, .peel:hover { transition: none; transform: rotate(var(--tilt, 0deg)); }
 }
