@@ -23,9 +23,12 @@ export function ProjectCard({project, labels}: {project: Project; labels: Labels
             <li key={s}><Badge>{s}</Badge></li>
           ))}
         </ul>
-        <Link href={`/projects/${project.slug}`} className={`${buttonClass('secondary')} mt-auto w-fit`}>
+        <Link
+          href={`/projects/${project.slug}`}
+          aria-label={`${labels.viewCase}: ${project.title}`}
+          className={`${buttonClass('secondary')} mt-auto w-fit`}
+        >
           {labels.viewCase}
-          <span className="sr-only">: {project.title}</span>
         </Link>
       </div>
     </article>
