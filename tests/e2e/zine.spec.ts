@@ -1,6 +1,7 @@
 import {expect, test} from '@playwright/test';
 
-const EXCLUDED = /spider|miles|morales|marvel|sony/i;
+// Whole words only: decorative lettering like "SMILE" drawn twice reads "SMILESMILE".
+const EXCLUDED = /\b(spider|miles|morales|marvel|sony)\b/i;
 
 for (const [locale, line] of [
   ['en', 'Fan art. Not affiliated with Marvel or Sony.'],

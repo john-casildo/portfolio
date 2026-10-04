@@ -7,6 +7,7 @@ import {fontVariables} from '@/app/fonts';
 import {Header} from '@/components/ui/Header';
 import {Footer} from '@/components/ui/Footer';
 import {Ticker} from '@/components/zine/Ticker';
+import {EdgeGraffiti} from '@/components/zine/Graffiti';
 import {site} from '@/lib/site';
 import '@/app/globals.css';
 
@@ -47,7 +48,10 @@ export default async function LocaleLayout({children, params}: Props) {
           </a>
           <Header />
           <Ticker />
-          <main id="main">{children}</main>
+          <main id="main" className="relative">
+            <EdgeGraffiti />
+            {children}
+          </main>
           <Ticker />
           <Footer />
         </NextIntlClientProvider>
