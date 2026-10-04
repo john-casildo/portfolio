@@ -1,5 +1,6 @@
 import {getTranslations} from 'next-intl/server';
 import {buttonClass} from '@/components/ui/button';
+import {HeroMascot} from '@/components/three/HeroMascot';
 
 export async function Hero() {
   const t = await getTranslations('Hero');
@@ -17,7 +18,9 @@ export async function Hero() {
             <a href="#contact" className={buttonClass('secondary')}>{t('ctaContact')}</a>
           </div>
         </div>
-        <div data-slot="mascot" className="relative h-[45svh] md:h-[70svh]" />
+        <div data-slot="mascot" className="relative h-[45svh] md:h-[70svh]">
+          <HeroMascot alt={t('mascotAlt')} />
+        </div>
       </div>
     </section>
   );

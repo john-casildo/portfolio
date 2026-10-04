@@ -23,6 +23,7 @@ test('background canvas renders without errors', async ({page}) => {
   const errors = collectErrors(page);
   await page.goto('/en');
   await expect(page.getByTestId('bg-canvas').locator('canvas')).toBeAttached();
+  await expect(page.getByTestId('mascot-canvas').locator('canvas')).toBeAttached();
   await page.mouse.move(400, 300);
   await page.locator('#work').scrollIntoViewIfNeeded();
   await page.waitForTimeout(1000);
@@ -36,6 +37,10 @@ test('without WebGL the static pattern shows and content is readable', async ({p
   await expect(page.getByTestId('bg-fallback')).toBeAttached();
   await expect(page.getByTestId('bg-canvas')).toHaveCount(0);
   await expect(page.getByRole('heading', {level: 1})).toBeVisible();
+  const fallback = page.getByTestId('hero-fallback');
+  await expect(fallback).toBeVisible();
+  await expect(fallback).toHaveAttribute('alt', /mascot/i);
+  expect(await fallback.evaluate((img: HTMLImageElement) => img.complete && img.naturalWidth > 0)).toBe(true);
   expect(errors).toEqual([]);
 });
 
@@ -44,6 +49,7 @@ test('reduced motion renders a still frame without errors', async ({page}) => {
   await page.emulateMedia({reducedMotion: 'reduce'});
   await page.goto('/en');
   await expect(page.getByTestId('bg-canvas').locator('canvas')).toBeAttached();
+  await expect(page.getByTestId('mascot-canvas').locator('canvas')).toBeAttached();
   await page.locator('#about').scrollIntoViewIfNeeded();
   await expect(page.locator('#about [data-reveal]')).toHaveCSS('opacity', '1');
   expect(errors).toEqual([]);
