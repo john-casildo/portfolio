@@ -1,6 +1,7 @@
 import {getTranslations} from 'next-intl/server';
 import {buttonClass} from '@/components/ui/button';
 import {Avatar} from '@/components/avatar/Avatar';
+import {Boombox} from '@/components/zine/Boombox';
 import {Doodle} from '@/components/zine/Doodle';
 import {NumberSticker} from '@/components/zine/NumberSticker';
 import {JCStamp} from '@/components/zine/JCStamp';
@@ -37,6 +38,7 @@ export async function Hero() {
             <JCStamp className="w-[92%] max-w-lg text-red opacity-25" />
           </div>
           <Avatar label={t('mascotAlt')} />
+          <Boombox playLabel={t('boomboxPlay')} stopLabel={t('boomboxStop')} className="bottom-2 right-0 w-28 sm:w-36" />
           <p aria-hidden="true" className="pointer-events-none absolute -left-2 bottom-10 flex rotate-[-8deg] items-center gap-1 font-tag text-lg md:-left-8">
             {t('tapHint')}
             <Doodle kind="arrow" className="h-6 w-10" />

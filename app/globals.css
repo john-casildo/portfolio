@@ -53,6 +53,13 @@ body {
 .pose-pop { animation: pose-pop 250ms steps(3, end); transform-box: fill-box; transform-origin: 50% 100%; }
 @keyframes pose-pop { 0% { transform: scale(0.92) rotate(-2deg); } 50% { transform: scale(1.04) rotate(1deg); } 100% { transform: none; } }
 
+.note { opacity: 0; }
+.boombox[data-playing="true"] .speaker { animation: pump 333ms steps(2, jump-none) infinite; transform-box: fill-box; transform-origin: center; }
+.boombox[data-playing="true"] .note { animation: note 1s steps(6, end) infinite; }
+.boombox[data-playing="true"] .note-late { animation-delay: 0.5s; }
+@keyframes pump { 0% { transform: scale(1); } 100% { transform: scale(1.09); } }
+@keyframes note { 0% { opacity: 0; transform: translate(0, 0); } 20% { opacity: 1; } 100% { opacity: 0; transform: translate(8px, -30px); } }
+
 .ticker { overflow: hidden; }
 .ticker-track { animation: ticker 40s linear infinite; }
 .ticker:hover .ticker-track { animation-play-state: paused; }
@@ -68,4 +75,6 @@ body {
   .btn-press, .tilt-l, .tilt-r { transition: none; }
   .ticker-track { animation: none; }
   .peel, .peel:hover { transition: none; transform: rotate(var(--tilt, 0deg)); }
+  .boombox[data-playing="true"] .speaker { animation: none; }
+  .boombox[data-playing="true"] .note { animation: none; opacity: 1; }
 }

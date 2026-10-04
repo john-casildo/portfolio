@@ -20,7 +20,9 @@
     "ctaWork": "Ver proyectos",
     "ctaContact": "Hablemos",
     "mascotAlt": "John Casildo como sticker de cómic — cambiar pose",
-    "tapHint": "¡dale clic!"
+    "tapHint": "¡dale clic!",
+    "boomboxPlay": "Reproducir música",
+    "boomboxStop": "Detener música"
   },
   "Services": {
     "tag": "elige tu modo",
