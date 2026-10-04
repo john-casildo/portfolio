@@ -6,6 +6,7 @@ import {routing} from '@/i18n/routing';
 import {fontVariables} from '@/app/fonts';
 import {Header} from '@/components/ui/Header';
 import {Footer} from '@/components/ui/Footer';
+import {Background} from '@/components/three/Background';
 import {site} from '@/lib/site';
 import '@/app/globals.css';
 
@@ -36,6 +37,7 @@ export default async function LocaleLayout({children, params}: Props) {
   return (
     <html lang={locale} className={fontVariables}>
       <body className="bg-paper font-sans text-ink antialiased">
+        <Background />
         <NextIntlClientProvider>
           <Header />
           <main id="main">{children}</main>
