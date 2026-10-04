@@ -18,13 +18,19 @@ export function ContactForm({directLinks}: {directLinks: ReactNode}) {
   const [hydrated, setHydrated] = useState(false);
   useEffect(() => setHydrated(true), []);
 
+  function showErrors(form: HTMLFormElement, fields: ContactField[]) {
+    setErrors(fields);
+    // Move focus to the first problem so keyboard and screen-reader users land on it.
+    if (fields[0]) form.querySelector<HTMLElement>(`#contact-${fields[0]}`)?.focus();
+  }
+
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const form = event.currentTarget;
     const data = Object.fromEntries(new FormData(form));
     const parsed = contactSchema.safeParse(data);
     if (!parsed.success) {
-      setErrors(fieldErrors(parsed.error));
+      showErrors(form, fieldErrors(parsed.error));
       return;
     }
     setErrors([]);
@@ -42,8 +48,13 @@ export function ContactForm({directLinks}: {directLinks: ReactNode}) {
         setStatus('rate_limited');
       } else if (res.status === 400) {
         const body: {fields?: ContactField[]} | null = await res.json().catch(() => null);
-        setErrors(body?.fields ?? []);
-        setStatus('idle');
+        const fields = body?.fields ?? [];
+        if (fields.length > 0) {
+          showErrors(form, fields);
+          setStatus('idle');
+        } else {
+          setStatus('failure');
+        }
       } else {
         setStatus('failure');
       }

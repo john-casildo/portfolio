@@ -26,7 +26,7 @@ export function HeroMascot({alt}: {alt: string}) {
   const image = <MascotImage alt={alt} priority />;
   return (
     <WebGLGate fallback={image} pending={image}>
-      <MascotCanvas reducedMotion={reducedMotion} />
+      <MascotCanvas reducedMotion={reducedMotion} alt={alt} />
     </WebGLGate>
   );
 }

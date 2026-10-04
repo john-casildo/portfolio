@@ -59,3 +59,24 @@ export function repattern(orient: Float32Array, rand: () => number): Float32Arra
   }
   return next;
 }
+
+/**
+ * CPU mirror of the vertex shader's eased rotation (in quarter turns, may be fractional or negative),
+ * so a new transition can start from where the triangles visibly are instead of snapping.
+ */
+export function currentOrientation(orient: Float32Array, next: Float32Array, seeds: Float32Array, mix: number): Float32Array {
+  const out = new Float32Array(orient.length);
+  for (let i = 0; i < orient.length; i++) {
+    const local = Math.min(1, Math.max(0, mix * 1.6 - (seeds[i] ?? 0) * 0.6));
+    const eased = local * local * (3 - 2 * local);
+    let delta = ((((next[i] ?? 0) - (orient[i] ?? 0)) % 4) + 4) % 4;
+    if (delta > 2) delta -= 4;
+    out[i] = (orient[i] ?? 0) + delta * eased;
+  }
+  return out;
+}
+
+/** The field only needs frames during a re-pattern or shortly after pointer movement (saves battery). */
+export function isFieldAnimating(nowSeconds: number, activeUntilSeconds: number, transitioning: boolean): boolean {
+  return transitioning || nowSeconds < activeUntilSeconds;
+}
