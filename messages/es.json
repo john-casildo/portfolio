@@ -1,0 +1,80 @@
+{
+  "Meta": {
+    "title": "John Casildo — Sitios y aplicaciones web",
+    "description": "Desarrollador freelance que crea sitios y aplicaciones web rápidos y memorables, de principio a fin. Español e inglés."
+  },
+  "Nav": {
+    "label": "Principal",
+    "services": "Servicios",
+    "work": "Proyectos",
+    "about": "Sobre mí",
+    "contact": "Contacto",
+    "switchTo": "EN",
+    "switchLabel": "View in English"
+  },
+  "Hero": {
+    "tag": "construye la web",
+    "name": "JOHN CASILDO",
+    "valueProp": "Sitios y aplicaciones web que se ven bien, cargan rápido y funcionan de verdad — de principio a fin.",
+    "ctaWork": "Ver proyectos",
+    "ctaContact": "Hablemos",
+    "mascotAlt": "Mascota low-poly con un gran peinado y sudadera, de brazos cruzados"
+  },
+  "Services": {
+    "tag": "elige tu modo",
+    "title": "Servicios",
+    "websites": {"title": "Sitios web", "body": "Sitios rápidos y memorables para negocios, eventos y marcas personales."},
+    "webapps": {"title": "Aplicaciones web", "body": "Paneles, portales y herramientas que tu equipo o tus clientes usan todos los días."},
+    "backends": {"title": "Backends y APIs", "body": "Bases de datos, autenticación y APIs con Supabase, FastAPI y PostgreSQL."}
+  },
+  "Projects": {
+    "tag": "selecciona nivel",
+    "title": "Proyectos",
+    "featured": "Destacado",
+    "viewCase": "Ver caso de estudio",
+    "stack": "Tecnologías"
+  },
+  "About": {
+    "tag": "jugador uno",
+    "title": "Sobre mí",
+    "bio": "Soy John, desarrollador que crea sitios y aplicaciones web rápidos y atractivos — desde la base de datos hasta el último píxel. He lanzado apps nativas de iOS y Android sobre Supabase y sistemas completos con FastAPI y PostgreSQL. Trabajo en español e inglés.",
+    "stackTitle": "Herramientas que uso",
+    "github": "Ver mi GitHub"
+  },
+  "Contact": {
+    "tag": "¿continuar?",
+    "title": "Hablemos",
+    "intro": "Cuéntame sobre tu proyecto. Respondo en menos de 48 horas.",
+    "name": "Nombre",
+    "email": "Correo",
+    "message": "Mensaje",
+    "send": "Enviar mensaje",
+    "sending": "Enviando…",
+    "success": "Mensaje enviado — te respondo en menos de 48 horas.",
+    "failure": "No se pudo enviar tu mensaje. Escríbeme directamente:",
+    "rateLimited": "Demasiados mensajes. Intenta de nuevo en unos minutos o escríbeme directamente:",
+    "direct": "¿Prefieres escribir directamente?",
+    "whatsapp": "WhatsApp",
+    "emailCta": "Escríbeme",
+    "whatsappPrefill": "¡Hola John! Me gustaría hablar sobre un proyecto.",
+    "errors": {
+      "name": "Escribe tu nombre (hasta 100 caracteres).",
+      "email": "Escribe un correo válido.",
+      "message": "Escribe al menos 10 caracteres (hasta 2000)."
+    }
+  },
+  "Case": {
+    "role": "Rol",
+    "stack": "Tecnologías",
+    "repo": "Ver código",
+    "live": "Visitar sitio",
+    "next": "Siguiente proyecto",
+    "back": "Volver a proyectos"
+  },
+  "NotFound": {
+    "title": "GAME OVER",
+    "body": "Esta página no existe.",
+    "cta": "¿Continuar? Volver al inicio"
+  },
+  "Footer": {"rights": "Todos los derechos reservados."}
+}
