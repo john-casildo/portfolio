@@ -1,24 +1,4 @@
-import {expect, test, type Page} from '@playwright/test';
-
-async function wake3D(page: Page) {
-  let step = 0;
-  await expect(async () => {
-    step++;
-    await page.mouse.move(100 + step * 7, 100 + step * 5);
-    await expect(page.getByTestId('mascot-canvas').locator('canvas')).toBeAttached({timeout: 500});
-  }).toPass();
-}
-
-test('a WebGL context lost for good falls back to the still image', async ({page}) => {
-  await page.goto('/en');
-  await wake3D(page);
-  await page.waitForTimeout(500);
-  await page.getByTestId('mascot-canvas').locator('canvas').evaluate((c: HTMLCanvasElement) => {
-    c.getContext('webgl2')?.getExtension('WEBGL_lose_context')?.loseContext();
-  });
-  await expect(page.getByTestId('hero-fallback')).toBeVisible({timeout: 4000});
-  await expect(page.getByTestId('mascot-canvas')).toHaveCount(0);
-});
+import {expect, test} from '@playwright/test';
 
 test('ticker loops seamlessly: the track is exactly two identical halves', async ({page}) => {
   await page.goto('/en');

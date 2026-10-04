@@ -18,8 +18,6 @@ const PAPER = '#F2EFE8';
 const INK = '#0B0B0B';
 const RED = '#E10600';
 
-const LEGS = ['M-4 -10 L-12 -30 L-9 -56', 'M-6 -5 L-28 -18 L-38 -44', 'M-6 6 L-30 16 L-42 42', 'M-4 13 L-14 36 L-9 58'];
-
 const asset = (...parts: string[]) => readFile(join(process.cwd(), ...parts));
 
 /** Link-preview card in the zine style. Fonts are bundled because the OG renderer can't load web fonts. */
@@ -34,7 +32,7 @@ export default async function OpenGraphImage({params}: {params: Promise<{locale:
     asset('assets', 'fonts', 'Knewave-Regular.ttf'),
     asset('assets', 'fonts', 'PermanentMarker-Regular.ttf'),
     asset('assets', 'fonts', 'SpaceGrotesk-Medium.ttf'),
-    asset('public', 'hero-fallback.png'),
+    asset('public', 'avatar.png'),
   ]);
   const heroSrc = `data:image/png;base64,${hero.toString('base64')}`;
 
@@ -51,15 +49,10 @@ export default async function OpenGraphImage({params}: {params: Promise<{locale:
             <div style={{fontFamily: 'Grotesk', fontSize: 30, lineHeight: 1.3, marginTop: 24, maxWidth: 640}}>{t('valueProp')}</div>
           </div>
           <div style={{display: 'flex', position: 'absolute', right: 40, top: 10, width: 420, height: 520, alignItems: 'center', justifyContent: 'center'}}>
-            <svg viewBox="-62 -62 124 124" width="420" height="420" style={{position: 'absolute', opacity: 0.2}}>
-              <circle r="41" fill="none" stroke={RED} strokeWidth="7" />
-              <ellipse cy="10" rx="9" ry="15" fill={RED} />
-              <ellipse cy="-8" rx="7" ry="8" fill={RED} />
-              {[1, -1].map((side) =>
-                LEGS.map((d) => <path key={`${side}${d}`} d={d} transform={`scale(${side} 1)`} fill="none" stroke={RED} strokeWidth="5" strokeLinecap="round" />),
-              )}
-            </svg>
-            <img src={heroSrc} width={420} height={521} alt="" style={{position: 'absolute', top: -6}} />
+            <div style={{position: 'absolute', display: 'flex', alignItems: 'center', justifyContent: 'center', width: 440, height: 440, borderRadius: 9999, border: `22px solid ${RED}`, opacity: 0.25}}>
+              <span style={{fontFamily: 'Knewave', fontSize: 210, color: RED}}>JC</span>
+            </div>
+            <img src={heroSrc} width={188} height={510} alt="" style={{position: 'absolute', top: 12}} />
           </div>
         </div>
         <div style={{display: 'flex', height: 72, alignItems: 'center', background: INK, color: PAPER, fontFamily: 'Marker', fontSize: 30, whiteSpace: 'nowrap', overflow: 'hidden', paddingLeft: 24}}>

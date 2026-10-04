@@ -1,9 +1,9 @@
 import {getTranslations} from 'next-intl/server';
 import {buttonClass} from '@/components/ui/button';
-import {HeroMascot} from '@/components/three/HeroMascot';
+import {Avatar} from '@/components/avatar/Avatar';
 import {Doodle} from '@/components/zine/Doodle';
 import {NumberSticker} from '@/components/zine/NumberSticker';
-import {SpiderStamp} from '@/components/zine/SpiderStamp';
+import {JCStamp} from '@/components/zine/JCStamp';
 import {Sticker} from '@/components/zine/Sticker';
 
 export async function Hero() {
@@ -34,9 +34,13 @@ export async function Hero() {
         </div>
         <div data-slot="mascot" className="relative h-[55svh] md:h-[72svh]">
           <div data-stamp className="pointer-events-none absolute inset-0 flex items-center justify-center">
-            <SpiderStamp className="w-[88%] max-w-md text-red opacity-20" />
+            <JCStamp className="w-[92%] max-w-lg text-red opacity-25" />
           </div>
-          <HeroMascot alt={t('mascotAlt')} />
+          <Avatar label={t('mascotAlt')} />
+          <p aria-hidden="true" className="pointer-events-none absolute -left-2 bottom-10 flex rotate-[-8deg] items-center gap-1 font-tag text-lg md:-left-8">
+            {t('tapHint')}
+            <Doodle kind="arrow" className="h-6 w-10" />
+          </p>
         </div>
       </div>
     </section>
