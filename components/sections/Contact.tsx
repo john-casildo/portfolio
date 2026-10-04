@@ -1,6 +1,9 @@
 import {getTranslations} from 'next-intl/server';
 import {SectionHeading} from '@/components/ui/SectionHeading';
 import {hasWhatsApp, site, whatsappUrl} from '@/lib/site';
+import {Tape} from '@/components/zine/Tape';
+import {Doodle} from '@/components/zine/Doodle';
+import {NumberSticker} from '@/components/zine/NumberSticker';
 import {ContactForm} from './ContactForm';
 import {DirectLinks} from './DirectLinks';
 
@@ -15,7 +18,9 @@ export async function Contact() {
     />
   );
   return (
-    <section id="contact" data-section aria-labelledby="contact-title" className="border-t-2 border-ink bg-paper/90">
+    <section id="contact" data-section aria-labelledby="contact-title" className="relative overflow-hidden border-t-[3px] border-ink">
+      <NumberSticker n={5} className="absolute left-4 top-6" />
+      <Doodle kind="zigzag" color="red" className="absolute bottom-6 right-6 w-24" />
       <div data-reveal className="mx-auto grid max-w-6xl gap-10 px-4 py-20 md:grid-cols-2">
         <div>
           <SectionHeading id="contact" tag={t('tag')} title={t('title')} />
@@ -23,7 +28,8 @@ export async function Contact() {
           <p className="mt-8 font-bold">{t('direct')}</p>
           <div className="mt-3">{links}</div>
         </div>
-        <div className="rounded-2xl border-2 border-ink bg-paper p-6 shadow-[6px_6px_0_var(--color-ink)]">
+        <div className="sticker notebook tilt-r relative p-6">
+          <Tape />
           <ContactForm directLinks={links} />
         </div>
       </div>

@@ -8,25 +8,25 @@ import {WebGLGate} from './WebGLGate';
 function MascotImage({alt, priority = false}: {alt: string; priority?: boolean}) {
   return (
     <Image
-      src="/mascot-fallback.png"
+      src="/hero-fallback.png"
       alt={alt}
-      width={480}
-      height={640}
+      width={522}
+      height={648}
       priority={priority}
       data-testid="hero-fallback"
-      className="pixelated h-full w-full object-contain"
+      className="relative h-full w-full object-contain"
     />
   );
 }
 
-const MascotCanvas = dynamic(() => import('./MascotCanvas'), {ssr: false, loading: () => <MascotImage alt="" />});
+const HeroCanvas = dynamic(() => import('@/components/hero3d/HeroCanvas'), {ssr: false, loading: () => <MascotImage alt="" />});
 
 export function HeroMascot({alt}: {alt: string}) {
   const reducedMotion = useReducedMotion();
   const image = <MascotImage alt={alt} priority />;
   return (
     <WebGLGate fallback={image} pending={image}>
-      <MascotCanvas reducedMotion={reducedMotion} alt={alt} />
+      <HeroCanvas reducedMotion={reducedMotion} alt={alt} />
     </WebGLGate>
   );
 }

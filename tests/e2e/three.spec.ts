@@ -15,7 +15,7 @@ async function wake3D(page: Page) {
   await expect(async () => {
     step++;
     await page.mouse.move(100 + step * 7, 100 + step * 5);
-    await expect(page.getByTestId('bg-canvas').locator('canvas')).toBeAttached({timeout: 500});
+    await expect(page.getByTestId('mascot-canvas').locator('canvas')).toBeAttached({timeout: 500});
   }).toPass();
 }
 
@@ -32,15 +32,13 @@ async function disableWebGL(page: Page) {
 test('3D waits for the first interaction, showing static art until then', async ({page}) => {
   await page.goto('/en');
   await expect(page.getByTestId('hero-fallback')).toBeVisible();
-  await expect(page.getByTestId('bg-fallback')).toBeAttached();
   await page.waitForTimeout(1500);
-  await expect(page.getByTestId('bg-canvas')).toHaveCount(0);
   await expect(page.getByTestId('mascot-canvas')).toHaveCount(0);
   await wake3D(page);
   await expect(page.getByTestId('mascot-canvas').locator('canvas')).toBeAttached();
 });
 
-test('background canvas renders without errors', async ({page}) => {
+test('3D renders without errors', async ({page}) => {
   const errors = collectErrors(page);
   await page.goto('/en');
   await wake3D(page);
@@ -51,16 +49,14 @@ test('background canvas renders without errors', async ({page}) => {
   expect(errors).toEqual([]);
 });
 
-test('without WebGL the static pattern shows and content is readable', async ({page}) => {
+test('without WebGL the static art shows and content is readable', async ({page}) => {
   const errors = collectErrors(page);
   await disableWebGL(page);
   await page.goto('/en');
-  await expect(page.getByTestId('bg-fallback')).toBeAttached();
-  await expect(page.getByTestId('bg-canvas')).toHaveCount(0);
   await expect(page.getByRole('heading', {level: 1})).toBeVisible();
   const fallback = page.getByTestId('hero-fallback');
   await expect(fallback).toBeVisible();
-  await expect(fallback).toHaveAttribute('alt', /mascot/i);
+  await expect(fallback).toHaveAttribute('alt', /hero/i);
   expect(await fallback.evaluate((img: HTMLImageElement) => img.complete && img.naturalWidth > 0)).toBe(true);
   expect(errors).toEqual([]);
 });
@@ -101,7 +97,6 @@ test('WebGL1-only browsers get the static art instead of crashing', async ({page
   await page.waitForTimeout(1500);
   await expect(page.getByRole('heading', {level: 1})).toBeVisible();
   await expect(page.getByTestId('hero-fallback')).toBeVisible();
-  await expect(page.getByTestId('bg-fallback')).toBeAttached();
   expect(errors.filter((e) => !e.includes('WebGL'))).toEqual([]);
 });
 
@@ -119,7 +114,6 @@ test('a failing WebGL context after the probe falls back instead of crashing', a
   await page.waitForTimeout(1500);
   await expect(page.getByRole('heading', {level: 1})).toBeVisible();
   await expect(page.getByTestId('hero-fallback')).toBeVisible();
-  await expect(page.getByTestId('bg-fallback')).toBeAttached();
 });
 
 test('no WebGL context is created before the first interaction', async ({page}) => {

@@ -19,14 +19,23 @@
     "valueProp": "Websites and web apps that look great, load fast, and actually work — built end to end.",
     "ctaWork": "See work",
     "ctaContact": "Let's talk",
-    "mascotAlt": "Low-poly mascot with a big hairdo and a hoodie, arms crossed"
+    "mascotAlt": "Masked hero in a black and red suit hanging upside down from a web"
   },
   "Services": {
     "tag": "select your mode",
     "title": "Services",
-    "websites": {"title": "Websites", "body": "Fast, memorable sites for businesses, events, and personal brands."},
-    "webapps": {"title": "Web apps", "body": "Dashboards, portals, and tools your team or customers use every day."},
-    "backends": {"title": "Backends & APIs", "body": "Databases, auth, and APIs with Supabase, FastAPI, and PostgreSQL."}
+    "websites": {
+      "title": "Websites",
+      "body": "Fast, memorable sites for businesses, events, and personal brands."
+    },
+    "webapps": {
+      "title": "Web apps",
+      "body": "Dashboards, portals, and tools your team or customers use every day."
+    },
+    "backends": {
+      "title": "Backends & APIs",
+      "body": "Databases, auth, and APIs with Supabase, FastAPI, and PostgreSQL."
+    }
   },
   "Projects": {
     "tag": "level select",
@@ -77,5 +86,11 @@
     "body": "This page doesn't exist.",
     "cta": "Continue? Back to home"
   },
-  "Footer": {"rights": "All rights reserved."}
+  "Footer": {
+    "rights": "All rights reserved.",
+    "fanArt": "Fan art. Not affiliated with Marvel or Sony."
+  },
+  "Ticker": {
+    "text": "JOHN CASILDO ✱ WEB DEV ✱ SITES ✱ WEB APPS ✱ BACKENDS ✱ COSTA RICA ✱"
+  }
 }
