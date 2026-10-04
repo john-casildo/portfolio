@@ -1,8 +1,26 @@
-import {getTranslations, setRequestLocale} from 'next-intl/server';
+import {notFound} from 'next/navigation';
+import {hasLocale} from 'next-intl';
+import {setRequestLocale} from 'next-intl/server';
+import {routing} from '@/i18n/routing';
+import {getProjects} from '@/lib/projects';
+import {Hero} from '@/components/sections/Hero';
+import {Services} from '@/components/sections/Services';
+import {ProjectsSection} from '@/components/sections/ProjectsSection';
+import {About} from '@/components/sections/About';
+import {SectionObserver} from '@/components/SectionObserver';
 
 export default async function Home({params}: {params: Promise<{locale: string}>}) {
   const {locale} = await params;
+  if (!hasLocale(routing.locales, locale)) notFound();
   setRequestLocale(locale);
-  const t = await getTranslations('Hero');
-  return <h1 className="px-4 py-20 font-display text-6xl">{t('name')}</h1>;
+
+  return (
+    <>
+      <Hero />
+      <Services />
+      <ProjectsSection projects={getProjects(locale)} />
+      <About />
+      <SectionObserver />
+    </>
+  );
 }
