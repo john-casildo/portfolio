@@ -29,7 +29,7 @@ function Drip({x, y, h, color}: {x: number; y: number; h: number; color: string}
  * Bubble-letter throw-up: fat letters with a black outline, a colored 3D drop, a white outer cut and a black
  * outer line (SVG filter), shine marks, sparkles and drips. Original lettering; decorative only.
  */
-export function ThrowUp({text, fill, shade, className = '', tilt = 0}: Props & {fill: string; shade: string}) {
+export function ThrowUp({text, fill, shade, className = '', tilt = 0, drippy = false}: Props & {fill: string; shade: string; drippy?: boolean}) {
   const id = useFilterId('throwup');
   const chars = Array.from(text);
   const width = Math.round(chars.reduce((w, c) => w + (c === ' ' ? BUBBLE_ADVANCE * 0.45 : BUBBLE_ADVANCE), 0) + 70);
@@ -40,7 +40,8 @@ export function ThrowUp({text, fill, shade, className = '', tilt = 0}: Props & {
     return {c, x};
   });
   const solid = letters.filter((l) => l.c !== ' ');
-  const dripAt = [solid[1], solid[solid.length - 2]].filter(Boolean);
+  // Drippy pieces melt under every letter; regular ones drip twice.
+  const dripAt = drippy ? solid : [solid[1], solid[solid.length - 2]].filter(Boolean);
   return (
     <span
       aria-hidden="true"
@@ -67,7 +68,7 @@ export function ThrowUp({text, fill, shade, className = '', tilt = 0}: Props & {
         </defs>
         <g filter={`url(#${id})`}>
           {dripAt.map((l, i) => (
-            <Drip key={`drip${i}`} x={(l?.x ?? 0) + BUBBLE_ADVANCE * 0.45} y={112} h={i ? 22 : 34} color={fill} />
+            <Drip key={`drip${i}`} x={(l?.x ?? 0) + BUBBLE_ADVANCE * 0.45} y={112} h={drippy ? [30, 18, 38, 24, 34][i % 5]! : i ? 22 : 34} color={fill} />
           ))}
           <text x="32" y="118" fontFamily={BUBBLE} fontSize={BUBBLE_SIZE} fill={shade} stroke={INK} strokeWidth="12" strokeLinejoin="round" paintOrder="stroke" transform="translate(7 8)">
             {text}
@@ -137,6 +138,77 @@ export function GraffitiWall() {
       <Tag text="code kid" color={PINK} tilt={-6} className="bottom-3 left-[6%] hidden w-44 sm:block" />
       <Tag text="2026" color={CYAN} tilt={8} className="right-[8%] top-3 w-24 sm:w-32" />
       <ThrowUp text="CR" fill={CYAN} shade={PINK} tilt={10} className="right-[22%] top-2 hidden w-24 lg:block" />
+    </div>
+  );
+}
+
+const MINT = '#3DF5C8';
+const ORANGE = '#FF7A00';
+const PURPLE = '#8B5CFF';
+
+type EdgePiece =
+  | {kind: 'throwup'; text: string; fill: string; shade: string; drippy?: boolean; tilt: number; top: string; width: string}
+  | {kind: 'tag'; text: string; color: string; crown?: boolean; tilt: number; top: string; width: string};
+
+const LEFT: EdgePiece[] = [
+  {kind: 'throwup', text: 'SMILE', fill: YELLOW, shade: CYAN, drippy: true, tilt: -12, top: '3%', width: '11rem'},
+  {kind: 'tag', text: 'mae', color: PINK, tilt: -8, top: '9%', width: '6rem'},
+  {kind: 'throwup', text: 'KING', fill: ORANGE, shade: PURPLE, tilt: 8, top: '15%', width: '9.5rem'},
+  {kind: 'throwup', text: 'TICO', fill: MINT, shade: PINK, drippy: true, tilt: -6, top: '27%', width: '9.5rem'},
+  {kind: 'tag', text: 'JC', color: INK, crown: true, tilt: 10, top: '35%', width: '5rem'},
+  {kind: 'throwup', text: 'WILD', fill: PINK, shade: YELLOW, tilt: 12, top: '41%', width: '9.5rem'},
+  {kind: 'throwup', text: 'DEPLOY', fill: LIME, shade: RED, tilt: -90, top: '52%', width: '12rem'},
+  {kind: 'throwup', text: 'BOOM', fill: CYAN, shade: RED, tilt: -10, top: '66%', width: '10rem'},
+  {kind: 'tag', text: 'tuanis', color: LIME, tilt: 6, top: '74%', width: '7rem'},
+  {kind: 'throwup', text: 'VIBES', fill: LIME, shade: PURPLE, drippy: true, tilt: 7, top: '80%', width: '11rem'},
+  {kind: 'throwup', text: 'LOOP', fill: PURPLE, shade: LIME, tilt: -7, top: '91%', width: '9.5rem'},
+];
+
+const RIGHT: EdgePiece[] = [
+  {kind: 'throwup', text: 'DRIP', fill: PINK, shade: CYAN, drippy: true, tilt: 10, top: '5%', width: '9.5rem'},
+  {kind: 'throwup', text: 'HOLA', fill: YELLOW, shade: RED, tilt: -8, top: '14%', width: '9.5rem'},
+  {kind: 'tag', text: 'diay', color: CYAN, tilt: -10, top: '21%', width: '6rem'},
+  {kind: 'throwup', text: 'LUCKY', fill: LIME, shade: PINK, tilt: 9, top: '28%', width: '11rem'},
+  {kind: 'throwup', text: 'NEXT', fill: CYAN, shade: YELLOW, tilt: -12, top: '39%', width: '9.5rem'},
+  {kind: 'throwup', text: 'ART', fill: RED, shade: YELLOW, drippy: true, tilt: 6, top: '49%', width: '8rem'},
+  {kind: 'tag', text: 'pura vida', color: PINK, tilt: 8, top: '57%', width: '8.5rem'},
+  {kind: 'throwup', text: 'BUGS', fill: ORANGE, shade: CYAN, tilt: -9, top: '63%', width: '9.5rem'},
+  {kind: 'throwup', text: 'ZERO', fill: PURPLE, shade: YELLOW, drippy: true, tilt: 11, top: '73%', width: '9.5rem'},
+  {kind: 'throwup', text: 'SHIP', fill: MINT, shade: PURPLE, tilt: -6, top: '84%', width: '9.5rem'},
+  {kind: 'tag', text: 'JC', color: RED, crown: true, tilt: -12, top: '93%', width: '5rem'},
+];
+
+function EdgeColumn({pieces, side}: {pieces: EdgePiece[]; side: 'left' | 'right'}) {
+  return (
+    <>
+      {pieces.map((p) => {
+        // Inner edge stays 1.5rem outside the 72rem content column; the rest runs off-screen, so wider
+        // screens reveal more of each piece and narrower ones show slivers.
+        const offset = `calc((100vw - 72rem) / 2 - 1.5rem - ${p.width})`;
+        const style: React.CSSProperties = {[side]: offset, top: p.top, width: p.width};
+        return p.kind === 'throwup' ? (
+          <span key={`${side}${p.text}`} className="absolute block" style={style}>
+            <ThrowUp text={p.text} fill={p.fill} shade={p.shade} drippy={p.drippy} tilt={p.tilt} className="relative w-full" />
+          </span>
+        ) : (
+          <span key={`${side}${p.text}${p.top}`} className="absolute block" style={style}>
+            <Tag text={p.text} color={p.color} crown={p.crown} tilt={p.tilt} className="relative w-full" />
+          </span>
+        );
+      })}
+    </>
+  );
+}
+
+/**
+ * Throw-ups and tags crammed into the page margins, half off-screen. Only on screens wide enough to have a
+ * margin beside the 72rem content column, so nothing ever sits on top of text. Decorative only.
+ */
+export function EdgeGraffiti() {
+  return (
+    <div aria-hidden="true" data-testid="edge-graffiti" className="pointer-events-none absolute inset-0 z-0 hidden overflow-hidden xl:block">
+      <EdgeColumn pieces={LEFT} side="left" />
+      <EdgeColumn pieces={RIGHT} side="right" />
     </div>
   );
 }
