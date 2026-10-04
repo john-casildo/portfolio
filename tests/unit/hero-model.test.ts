@@ -34,3 +34,18 @@ describe('toon material', () => {
     expect(TOON_FRAGMENT).toContain('halftone');
   });
 });
+
+describe('review fixes', () => {
+  test('toon shader converts to the output color space and has a sheen for dark suits', () => {
+    expect(TOON_FRAGMENT).toContain('#include <colorspace_fragment>');
+    const m = createToonMaterial({color: '#111114'});
+    expect(m.uniforms.uSheen).toBeDefined();
+  });
+
+  test('web line has an ink outline so it reads on paper', () => {
+    const web = buildHero().getObjectByName('web')!;
+    const outline = web.getObjectByName('webOutline') as THREE.Mesh | undefined;
+    expect(outline).toBeDefined();
+    expect(((outline!.material as THREE.MeshBasicMaterial).color.getHexString())).toBe('0b0b0b');
+  });
+});

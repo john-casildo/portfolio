@@ -61,3 +61,11 @@ test.describe('phone width', () => {
     });
   }
 });
+
+test('nav link hover stays readable (dark red, not brand red)', async ({page, isMobile}) => {
+  test.skip(isMobile, 'hover only');
+  await page.goto('/en');
+  const link = page.getByRole('navigation').getByRole('link', {name: 'Work'});
+  await link.hover();
+  await expect(link).toHaveCSS('color', 'rgb(143, 0, 0)');
+});

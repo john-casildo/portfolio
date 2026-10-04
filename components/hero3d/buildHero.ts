@@ -88,6 +88,11 @@ export function buildHero({webLength = 1.0} = {}): THREE.Group {
   web.name = 'web';
   web.scale.y = webLength;
   web.position.y = -webLength / 2;
+  // Ink casing behind the white line so the web reads on light paper.
+  const webOutline = new THREE.Mesh(new THREE.CylinderGeometry(0.024, 0.024, 1, 6), new THREE.MeshBasicMaterial({color: COLORS.ink}));
+  webOutline.name = 'webOutline';
+  webOutline.position.z = -0.01;
+  web.add(webOutline);
   pivot.add(web);
 
   // `body` origin is at the ankles; the upright figure inside is flipped so it hangs head-down.

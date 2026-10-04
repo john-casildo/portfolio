@@ -14,6 +14,7 @@ export const TOON_FRAGMENT = /* glsl */ `
   uniform vec3 uColor;
   uniform vec3 uLineColor;
   uniform vec3 uInk;
+  uniform vec3 uSheen;
   uniform vec3 uLightDir;
   uniform float uWebLines;
   uniform float uDotSize;
@@ -43,8 +44,11 @@ export const TOON_FRAGMENT = /* glsl */ `
     c += vec3(0.1) * step(0.8, ndl);
     float rim = 1.0 - abs(n.z);
     c += vec3(0.16) * smoothstep(0.62, 0.92, rim) * step(-0.2, ndl);
-    c = mix(c, uInk, halftone(dots));
+    // Dots darken bright colors; on a near-black suit they read as a cool sheen instead.
+    vec3 dotColor = dot(base, vec3(0.299, 0.587, 0.114)) < 0.05 ? uSheen : uInk;
+    c = mix(c, dotColor, halftone(dots));
     gl_FragColor = vec4(c, 1.0);
+    #include <colorspace_fragment>
   }
 `;
 
@@ -58,6 +62,7 @@ export function createToonMaterial({color, webLines = false}: Options): THREE.Sh
       uColor: {value: new THREE.Color(color)},
       uLineColor: {value: new THREE.Color('#E10600')},
       uInk: {value: new THREE.Color('#0B0B0B')},
+      uSheen: {value: new THREE.Color('#3A3A48')},
       uLightDir: {value: new THREE.Vector3(0.45, 0.75, 0.55).normalize()},
       uWebLines: {value: webLines ? 1 : 0},
       uDotSize: {value: 6},
