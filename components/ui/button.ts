@@ -1,7 +1,7 @@
 type Variant = 'primary' | 'secondary';
 
 const variants: Record<Variant, string> = {
-  primary: 'bg-red text-paper',
+  primary: 'bg-red text-white',
   secondary: 'bg-paper text-ink',
 };
 

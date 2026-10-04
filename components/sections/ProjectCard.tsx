@@ -17,7 +17,7 @@ export function ProjectCard({project, labels}: {project: Project; labels: Labels
       <Tape />
       <Image src={project.cover} alt="" width={1200} height={750} unoptimized className="aspect-[16/10] w-full border-b-[3px] border-ink object-cover" />
       <div className="flex flex-1 flex-col gap-3 p-5">
-        {project.featured && <span className="w-fit -rotate-2 bg-red px-2 py-0.5 font-tag text-sm text-paper">{labels.featured}</span>}
+        {project.featured && <span className="w-fit -rotate-2 bg-red px-2 py-0.5 font-tag text-sm text-white">{labels.featured}</span>}
         <h3 className="text-2xl font-bold">{project.title}</h3>
         <p>{project.summary}</p>
         <ul aria-label={labels.stack} className="flex flex-wrap gap-2">
