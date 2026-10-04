@@ -55,10 +55,11 @@ test('rate limited message', async ({page}) => {
   await expect(page.getByTestId('contact-failure')).toContainText('Too many messages');
 });
 
-test('WhatsApp button hidden while number is a placeholder', async ({page}) => {
+test('direct links use the real WhatsApp number and email', async ({page}) => {
   await page.goto('/en#contact');
-  await expect(page.getByTestId('whatsapp-link')).toHaveCount(0);
-  await expect(page.locator('#contact').getByTestId('email-link').first()).toBeVisible();
+  const section = page.locator('#contact');
+  await expect(section.getByTestId('whatsapp-link').first()).toHaveAttribute('href', /^https:\/\/wa\.me\/50661090625\?text=/);
+  await expect(section.getByTestId('email-link').first()).toHaveAttribute('href', 'mailto:johnbsns@outlook.com');
 });
 
 test('spanish labels', async ({page}) => {

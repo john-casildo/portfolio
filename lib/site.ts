@@ -7,8 +7,8 @@ function siteUrl(): string {
 export const site = {
   name: 'John Casildo',
   url: siteUrl(),
-  email: 'hello@example.com',
-  whatsapp: '0000000000',
+  email: 'johnbsns@outlook.com',
+  whatsapp: '50661090625',
   github: 'https://github.com/john-casildo',
   stack: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'Supabase', 'PostgreSQL', 'FastAPI', 'Docker', 'SwiftUI', 'Jetpack Compose'],
 } as const;
