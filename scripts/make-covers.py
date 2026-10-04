@@ -1,0 +1,31 @@
+"""Generates red/black zine cover SVGs for project cards."""
+from pathlib import Path
+
+COVERS = {
+    'presencia': ('PRESENCIA', 'iOS + Android + Supabase'),
+    'maruchan-university': ('MARUCHAN U.', 'FastAPI + PostgreSQL'),
+    'stub': ('STUB', 'Flutter + OCR'),
+}
+
+TEMPLATE = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750">
+  <defs>
+    <pattern id="dots" width="18" height="18" patternUnits="userSpaceOnUse"><circle cx="9" cy="9" r="3.2" fill="#0B0B0B"/></pattern>
+    <filter id="spray"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="5"/><feDisplacementMap in="SourceGraphic" scale="6"/></filter>
+  </defs>
+  <rect width="1200" height="750" fill="#F2EFE8"/>
+  <circle cx="980" cy="160" r="260" fill="url(#dots)" opacity="0.18"/>
+  <g filter="url(#spray)"><circle cx="230" cy="560" r="170" fill="none" stroke="#E10600" stroke-width="26" opacity="0.85"/></g>
+  <path d="M80 120 C300 60 520 180 760 110" fill="none" stroke="#0B0B0B" stroke-width="10" stroke-linecap="round"/>
+  <path d="M700 90 L765 110 L712 150" fill="none" stroke="#0B0B0B" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+  <g transform="rotate(-4 600 400)">
+    <text x="606" y="436" text-anchor="middle" font-family="Impact, Haettenschweiler, 'Arial Black', sans-serif" font-size="150" fill="#0B0B0B">{title}</text>
+    <text x="600" y="430" text-anchor="middle" font-family="Impact, Haettenschweiler, 'Arial Black', sans-serif" font-size="150" fill="#E10600">{title}</text>
+  </g>
+  <rect x="380" y="520" width="440" height="64" fill="#0B0B0B" transform="rotate(2 600 552)"/>
+  <text x="600" y="563" text-anchor="middle" font-family="'Comic Sans MS', 'Marker Felt', cursive" font-size="34" fill="#F2EFE8" transform="rotate(2 600 552)">{sub}</text>
+</svg>
+"""
+
+for slug, (title, sub) in COVERS.items():
+    Path(f'public/projects/{slug}.svg').write_text(TEMPLATE.format(title=title, sub=sub))
+    print('wrote', slug)

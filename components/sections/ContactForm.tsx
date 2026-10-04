@@ -8,7 +8,7 @@ import {contactSchema, fieldErrors, type ContactField} from '@/lib/contact-schem
 type Status = 'idle' | 'sending' | 'success' | 'failure' | 'rate_limited';
 
 const inputClass =
-  'mt-1 block min-h-12 w-full rounded-lg border-2 border-ink bg-[#F7F3E8] px-3 py-2 text-base aria-[invalid=true]:border-red';
+  'mt-1 block min-h-12 w-full rounded-sm border-2 border-ink bg-paper px-3 py-2 text-base aria-[invalid=true]:border-red';
 
 export function ContactForm({directLinks}: {directLinks: ReactNode}) {
   const t = useTranslations('Contact');
