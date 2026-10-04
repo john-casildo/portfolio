@@ -13,7 +13,7 @@ test('graffiti wall band with pieces and tags, decorative', async ({page}) => {
 test('desktop sections carry throw-ups', async ({page, isMobile}) => {
   test.skip(isMobile);
   await page.goto('/en');
-  for (const text of ['HIRE ME', 'PURA VIDA', 'FRESH']) {
+  for (const text of ['HIRE ME', 'SHIP IT', 'FRESH']) {
     await expect(page.locator(`main [data-graffiti][data-text="${text}"]`)).toHaveCount(1);
   }
 });

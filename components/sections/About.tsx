@@ -15,7 +15,7 @@ export async function About() {
     <section id="about" data-section aria-labelledby="about-title" className="relative overflow-hidden py-10">
       <NumberSticker n={4} className="absolute left-4 top-4 z-10" />
       <Sticker kind="spray-can" tilt={14} className="right-10 top-16 z-10 hidden w-24 md:block" />
-      <ThrowUp text="PURA VIDA" fill="#B6FF2E" shade="#00D1FF" tilt={-6} className="bottom-12 right-16 z-10 hidden w-72 md:block" />
+      <ThrowUp text="SHIP IT" fill="#B6FF2E" shade="#00D1FF" tilt={-6} className="bottom-12 right-16 z-10 hidden w-72 md:block" />
       <div className="relative text-[#E6E1D6]">
         <TornEdge position="top" />
         <div className="bg-[#E6E1D6] text-ink">

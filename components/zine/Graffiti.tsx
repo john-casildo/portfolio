@@ -134,10 +134,10 @@ export function GraffitiWall() {
     >
       <ThrowUp text="WEB DEV" fill={RED} shade={YELLOW} tilt={-4} className="left-1/2 top-1/2 w-[86%] max-w-[760px] -translate-x-1/2 -translate-y-1/2 sm:w-[64%]" />
       <Tag text="JC" color={WHITE} crown tilt={-10} className="left-[4%] top-3 w-20 sm:w-28" />
-      <Tag text="Costa Rica" color={LIME} tilt={6} className="bottom-2 right-[4%] w-36 sm:w-52" />
+      <Tag text="git push" color={LIME} tilt={6} className="bottom-2 right-[4%] w-36 sm:w-52" />
       <Tag text="code kid" color={PINK} tilt={-6} className="bottom-3 left-[6%] hidden w-44 sm:block" />
       <Tag text="2026" color={CYAN} tilt={8} className="right-[8%] top-3 w-24 sm:w-32" />
-      <ThrowUp text="CR" fill={CYAN} shade={PINK} tilt={10} className="right-[22%] top-2 hidden w-24 lg:block" />
+      <ThrowUp text="JS" fill={CYAN} shade={PINK} tilt={10} className="right-[22%] top-2 hidden w-24 lg:block" />
     </div>
   );
 }
@@ -152,29 +152,29 @@ type EdgePiece =
 
 const LEFT: EdgePiece[] = [
   {kind: 'throwup', text: 'SMILE', fill: YELLOW, shade: CYAN, drippy: true, tilt: -12, top: '3%', width: '11rem'},
-  {kind: 'tag', text: 'mae', color: PINK, tilt: -8, top: '9%', width: '6rem'},
+  {kind: 'tag', text: 'npm i', color: PINK, tilt: -8, top: '9%', width: '6rem'},
   {kind: 'throwup', text: 'KING', fill: ORANGE, shade: PURPLE, tilt: 8, top: '15%', width: '9.5rem'},
-  {kind: 'throwup', text: 'TICO', fill: MINT, shade: PINK, drippy: true, tilt: -6, top: '27%', width: '9.5rem'},
+  {kind: 'throwup', text: 'CSS', fill: MINT, shade: PINK, drippy: true, tilt: -6, top: '27%', width: '9.5rem'},
   {kind: 'tag', text: 'JC', color: INK, crown: true, tilt: 10, top: '35%', width: '5rem'},
   {kind: 'throwup', text: 'WILD', fill: PINK, shade: YELLOW, tilt: 12, top: '41%', width: '9.5rem'},
   {kind: 'throwup', text: 'DEPLOY', fill: LIME, shade: RED, tilt: -90, top: '52%', width: '12rem'},
   {kind: 'throwup', text: 'BOOM', fill: CYAN, shade: RED, tilt: -10, top: '66%', width: '10rem'},
-  {kind: 'tag', text: 'tuanis', color: LIME, tilt: 6, top: '74%', width: '7rem'},
+  {kind: 'tag', text: '</>', color: LIME, tilt: 6, top: '74%', width: '7rem'},
   {kind: 'throwup', text: 'VIBES', fill: LIME, shade: PURPLE, drippy: true, tilt: 7, top: '80%', width: '11rem'},
   {kind: 'throwup', text: 'LOOP', fill: PURPLE, shade: LIME, tilt: -7, top: '91%', width: '9.5rem'},
 ];
 
 const RIGHT: EdgePiece[] = [
   {kind: 'throwup', text: 'DRIP', fill: PINK, shade: CYAN, drippy: true, tilt: 10, top: '5%', width: '9.5rem'},
-  {kind: 'throwup', text: 'HOLA', fill: YELLOW, shade: RED, tilt: -8, top: '14%', width: '9.5rem'},
-  {kind: 'tag', text: 'diay', color: CYAN, tilt: -10, top: '21%', width: '6rem'},
+  {kind: 'throwup', text: 'HTML', fill: YELLOW, shade: RED, tilt: -8, top: '14%', width: '9.5rem'},
+  {kind: 'tag', text: '200 OK', color: CYAN, tilt: -10, top: '21%', width: '6rem'},
   {kind: 'throwup', text: 'LUCKY', fill: LIME, shade: PINK, tilt: 9, top: '28%', width: '11rem'},
   {kind: 'throwup', text: 'NEXT', fill: CYAN, shade: YELLOW, tilt: -12, top: '39%', width: '9.5rem'},
   {kind: 'throwup', text: 'ART', fill: RED, shade: YELLOW, drippy: true, tilt: 6, top: '49%', width: '8rem'},
-  {kind: 'tag', text: 'pura vida', color: PINK, tilt: 8, top: '57%', width: '8.5rem'},
+  {kind: 'tag', text: 'localhost', color: PINK, tilt: 8, top: '57%', width: '8.5rem'},
   {kind: 'throwup', text: 'BUGS', fill: ORANGE, shade: CYAN, tilt: -9, top: '63%', width: '9.5rem'},
   {kind: 'throwup', text: 'ZERO', fill: PURPLE, shade: YELLOW, drippy: true, tilt: 11, top: '73%', width: '9.5rem'},
-  {kind: 'throwup', text: 'SHIP', fill: MINT, shade: PURPLE, tilt: -6, top: '84%', width: '9.5rem'},
+  {kind: 'throwup', text: 'API', fill: MINT, shade: PURPLE, tilt: -6, top: '84%', width: '9.5rem'},
   {kind: 'tag', text: 'JC', color: RED, crown: true, tilt: -12, top: '93%', width: '5rem'},
 ];
 

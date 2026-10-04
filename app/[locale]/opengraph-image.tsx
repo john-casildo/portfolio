@@ -5,6 +5,7 @@ import {notFound} from 'next/navigation';
 import {hasLocale} from 'next-intl';
 import {getTranslations} from 'next-intl/server';
 import {routing} from '@/i18n/routing';
+import {EMBLEM} from '@/components/zine/JCStamp';
 
 export const size = {width: 1200, height: 630};
 export const contentType = 'image/png';
@@ -49,10 +50,12 @@ export default async function OpenGraphImage({params}: {params: Promise<{locale:
             <div style={{fontFamily: 'Grotesk', fontSize: 30, lineHeight: 1.3, marginTop: 24, maxWidth: 640}}>{t('valueProp')}</div>
           </div>
           <div style={{display: 'flex', position: 'absolute', right: 40, top: 10, width: 420, height: 520, alignItems: 'center', justifyContent: 'center'}}>
-            <div style={{position: 'absolute', display: 'flex', alignItems: 'center', justifyContent: 'center', width: 440, height: 440, borderRadius: 9999, border: `22px solid ${RED}`, opacity: 0.25}}>
-              <span style={{fontFamily: 'Knewave', fontSize: 210, color: RED}}>JC</span>
-            </div>
-            <img src={heroSrc} width={188} height={510} alt="" style={{position: 'absolute', top: 12}} />
+            <svg viewBox={EMBLEM.viewBox} width="470" height="470" style={{position: 'absolute', left: -60, opacity: 0.35}}>
+              <circle r={EMBLEM.ring.r} fill="none" stroke={RED} strokeWidth={EMBLEM.ring.width} />
+              <path d={EMBLEM.j} fill="none" stroke={RED} strokeWidth={EMBLEM.letterWidth} strokeLinecap="round" strokeLinejoin="round" />
+              <path d={EMBLEM.c} fill="none" stroke={RED} strokeWidth={EMBLEM.letterWidth} strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+            <img src={heroSrc} width={188} height={510} alt="" style={{position: 'absolute', top: 12, left: 230}} />
           </div>
         </div>
         <div style={{display: 'flex', height: 72, alignItems: 'center', background: INK, color: PAPER, fontFamily: 'Marker', fontSize: 30, whiteSpace: 'nowrap', overflow: 'hidden', paddingLeft: 24}}>
