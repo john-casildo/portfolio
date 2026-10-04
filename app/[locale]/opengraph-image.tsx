@@ -9,6 +9,11 @@ import {routing} from '@/i18n/routing';
 export const size = {width: 1200, height: 630};
 export const contentType = 'image/png';
 
+// Render at build time: the fonts and hero PNG are read from disk, which a serverless function may not ship.
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({locale}));
+}
+
 const PAPER = '#F2EFE8';
 const INK = '#0B0B0B';
 const RED = '#E10600';
