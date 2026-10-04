@@ -22,10 +22,13 @@ test('boombox plays the 10-second clip on click and stops on second click', asyn
 test('boombox resets when the clip ends', async ({page}) => {
   await page.goto('/en');
   await page.getByRole('button', {name: /play music/i}).click();
-  await page.locator('audio[data-boombox]').evaluate((a: HTMLAudioElement) => {
+  const audio = page.locator('audio[data-boombox]');
+  // preload="none": wait until the clip's metadata has loaded before seeking.
+  await expect.poll(() => audio.evaluate((a: HTMLAudioElement) => a.duration)).toBeGreaterThan(9);
+  await audio.evaluate((a: HTMLAudioElement) => {
     a.currentTime = a.duration - 0.2;
   });
-  await expect(page.getByRole('button', {name: /play music/i})).toHaveAttribute('aria-pressed', 'false', {timeout: 3000});
+  await expect(page.getByRole('button', {name: /play music/i})).toHaveAttribute('aria-pressed', 'false', {timeout: 10_000});
 });
 
 test('spanish labels', async ({page}) => {

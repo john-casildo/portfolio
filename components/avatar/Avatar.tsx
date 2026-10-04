@@ -245,7 +245,7 @@ function Body() {
         JC
       </text>
       <text x="200" y="344" textAnchor="middle" fontFamily="var(--font-grotesk), system-ui, sans-serif" fontWeight="700" fontSize="11" letterSpacing="2" fill={PRINT}>
-        WEB DEV · CR
+        WEB DEV
       </text>
       {/* chain + cross */}
       <path d="M176 254 Q200 300 224 254" fill="none" stroke={CHAIN} strokeWidth={2.4} />

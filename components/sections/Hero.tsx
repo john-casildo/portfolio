@@ -34,14 +34,17 @@ export async function Hero() {
           </div>
         </div>
         <div data-slot="mascot" className="relative h-[55svh] md:h-[72svh]">
-          <div data-stamp className="pointer-events-none absolute inset-0 flex items-center justify-center">
-            <JCStamp className="w-[92%] max-w-lg text-red opacity-25" />
+          {/* Poster layout: emblem off to the left so the JC reads beside the avatar, not hidden behind it. */}
+          <div data-stamp className="pointer-events-none absolute inset-y-0 left-0 flex w-[70%] items-center">
+            <JCStamp className="w-full text-red opacity-35" />
           </div>
-          <Avatar label={t('mascotAlt')} />
-          <Boombox playLabel={t('boomboxPlay')} stopLabel={t('boomboxStop')} className="bottom-2 right-0 w-28 sm:w-36" />
-          <p aria-hidden="true" className="pointer-events-none absolute -left-2 bottom-10 flex rotate-[-8deg] items-center gap-1 font-tag text-lg md:-left-8">
+          <div className="absolute inset-y-0 right-0 w-[64%]">
+            <Avatar label={t('mascotAlt')} />
+          </div>
+          <Boombox playLabel={t('boomboxPlay')} stopLabel={t('boomboxStop')} className="bottom-2 left-0 w-28 sm:w-36" />
+          <p aria-hidden="true" className="pointer-events-none absolute left-1 top-2 flex rotate-[-6deg] items-center gap-1 font-tag text-lg">
             {t('tapHint')}
-            <Doodle kind="arrow" className="h-6 w-10" />
+            <Doodle kind="arrow" className="h-6 w-10 rotate-[20deg]" />
           </p>
         </div>
       </div>
