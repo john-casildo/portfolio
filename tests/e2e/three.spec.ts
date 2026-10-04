@@ -9,6 +9,16 @@ function collectErrors(page: Page): string[] {
   return errors;
 }
 
+/** Moves the pointer until the deferred 3D mounts (the first move can land before hydration). */
+async function wake3D(page: Page) {
+  let step = 0;
+  await expect(async () => {
+    step++;
+    await page.mouse.move(100 + step * 7, 100 + step * 5);
+    await expect(page.getByTestId('bg-canvas').locator('canvas')).toBeAttached({timeout: 500});
+  }).toPass();
+}
+
 async function disableWebGL(page: Page) {
   await page.addInitScript(() => {
     const original = HTMLCanvasElement.prototype.getContext;
@@ -19,10 +29,21 @@ async function disableWebGL(page: Page) {
   });
 }
 
+test('3D waits for the first interaction, showing static art until then', async ({page}) => {
+  await page.goto('/en');
+  await expect(page.getByTestId('hero-fallback')).toBeVisible();
+  await expect(page.getByTestId('bg-fallback')).toBeAttached();
+  await page.waitForTimeout(1500);
+  await expect(page.getByTestId('bg-canvas')).toHaveCount(0);
+  await expect(page.getByTestId('mascot-canvas')).toHaveCount(0);
+  await wake3D(page);
+  await expect(page.getByTestId('mascot-canvas').locator('canvas')).toBeAttached();
+});
+
 test('background canvas renders without errors', async ({page}) => {
   const errors = collectErrors(page);
   await page.goto('/en');
-  await expect(page.getByTestId('bg-canvas').locator('canvas')).toBeAttached();
+  await wake3D(page);
   await expect(page.getByTestId('mascot-canvas').locator('canvas')).toBeAttached();
   await page.mouse.move(400, 300);
   await page.locator('#work').scrollIntoViewIfNeeded();
@@ -48,7 +69,7 @@ test('reduced motion renders a still frame without errors', async ({page}) => {
   const errors = collectErrors(page);
   await page.emulateMedia({reducedMotion: 'reduce'});
   await page.goto('/en');
-  await expect(page.getByTestId('bg-canvas').locator('canvas')).toBeAttached();
+  await wake3D(page);
   await expect(page.getByTestId('mascot-canvas').locator('canvas')).toBeAttached();
   await page.locator('#about').scrollIntoViewIfNeeded();
   await expect(page.locator('#about [data-reveal]')).toHaveCSS('opacity', '1');
@@ -59,6 +80,7 @@ test.describe('phone width', () => {
   test.use({viewport: {width: 375, height: 812}});
   test('canvases cause no horizontal scroll', async ({page}) => {
     await page.goto('/en');
+    await wake3D(page);
     await page.waitForTimeout(500);
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
     expect(overflow).toBeLessThanOrEqual(0);
