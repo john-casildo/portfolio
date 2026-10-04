@@ -16,7 +16,7 @@ function LowResolution() {
   return null;
 }
 
-export default function MascotCanvas({reducedMotion}: {reducedMotion: boolean}) {
+export default function MascotCanvas({reducedMotion, alt}: {reducedMotion: boolean; alt: string}) {
   const ref = useRef<HTMLDivElement>(null);
   const [inView, setInView] = useState(true);
 
@@ -29,7 +29,7 @@ export default function MascotCanvas({reducedMotion}: {reducedMotion: boolean}) 
   }, []);
 
   return (
-    <div ref={ref} aria-hidden="true" data-testid="mascot-canvas" className="pixelated h-full w-full">
+    <div ref={ref} role="img" aria-label={alt} data-testid="mascot-canvas" className="pixelated h-full w-full">
       <Canvas
         flat
         gl={{antialias: false, alpha: true}}

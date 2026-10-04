@@ -5,6 +5,7 @@
   },
   "Nav": {
     "label": "Principal",
+    "skip": "Saltar al contenido",
     "services": "Servicios",
     "work": "Proyectos",
     "about": "Sobre mí",

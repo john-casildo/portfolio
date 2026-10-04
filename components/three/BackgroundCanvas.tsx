@@ -11,7 +11,7 @@ export default function BackgroundCanvas({reducedMotion}: {reducedMotion: boolea
         camera={{position: [0, 0, 10], zoom: 1, near: 0.1, far: 100}}
         dpr={[1, 1.5]}
         gl={{antialias: false, alpha: true, powerPreference: 'low-power'}}
-        frameloop={reducedMotion ? 'demand' : 'always'}
+        frameloop="demand"
       >
         <TriangleField reducedMotion={reducedMotion} />
       </Canvas>

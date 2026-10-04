@@ -33,12 +33,19 @@ export default async function LocaleLayout({children, params}: Props) {
   const {locale} = await params;
   if (!hasLocale(routing.locales, locale)) notFound();
   setRequestLocale(locale);
+  const tNav = await getTranslations('Nav');
 
   return (
     <html lang={locale} className={fontVariables}>
       <body className="bg-paper font-sans text-ink antialiased">
         <Background />
         <NextIntlClientProvider>
+          <a
+            href="#main"
+            className="sr-only z-50 rounded-lg border-2 border-ink bg-paper px-4 py-3 font-bold focus:not-sr-only focus:fixed focus:left-4 focus:top-4"
+          >
+            {tNav('skip')}
+          </a>
           <Header />
           <main id="main">{children}</main>
           <Footer />

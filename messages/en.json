@@ -5,6 +5,7 @@
   },
   "Nav": {
     "label": "Main",
+    "skip": "Skip to content",
     "services": "Services",
     "work": "Work",
     "about": "About",
