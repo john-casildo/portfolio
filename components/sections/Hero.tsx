@@ -4,6 +4,7 @@ import {HeroMascot} from '@/components/three/HeroMascot';
 import {Doodle} from '@/components/zine/Doodle';
 import {NumberSticker} from '@/components/zine/NumberSticker';
 import {SpiderStamp} from '@/components/zine/SpiderStamp';
+import {Sticker} from '@/components/zine/Sticker';
 
 export async function Hero() {
   const t = await getTranslations('Hero');
@@ -11,10 +12,12 @@ export async function Hero() {
     <section id="top" data-section aria-labelledby="top-title" className="relative overflow-hidden">
       <Doodle kind="star" color="red" className="absolute left-[46%] top-10 hidden w-10 md:block" />
       <Doodle kind="x" className="absolute bottom-16 left-6 w-8" />
+      <Sticker kind="star" tilt={12} className="bottom-8 left-[44%] hidden w-12 md:block" />
       <Doodle kind="spiral" className="absolute right-4 top-6 hidden w-14 sm:block" />
       <div className="relative mx-auto grid min-h-[calc(100svh-7.5rem)] max-w-6xl items-center gap-6 px-4 py-10 md:grid-cols-[1.1fr_1fr]">
         <div className="relative">
           <NumberSticker n={1} className="absolute -top-8 left-0" />
+          <Sticker kind="bubble-jc" tilt={-8} className="-top-16 right-0 hidden w-40 lg:block" />
           <div className="flex items-end gap-2 pl-10">
             <p aria-hidden="true" className="-rotate-3 font-tag text-2xl">{t('tag')}</p>
             <Doodle kind="arrow-curve" className="w-12 rotate-90" />
