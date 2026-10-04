@@ -1,10 +1,9 @@
 'use client';
 
 import {useEffect, useMemo, useRef} from 'react';
-import {useFrame} from '@react-three/fiber';
-import * as THREE from 'three';
+import {useFrame, useThree} from '@react-three/fiber';
 import {damp, dropOffset, headLook, sway, twist} from '@/lib/hero-motion';
-import {buildHero} from './buildHero';
+import {buildHero, disposeHero, restPose, setDotScale} from './buildHero';
 
 const WEB_LENGTH = 0.6;
 
@@ -13,14 +12,27 @@ export function HeroCharacter({reducedMotion}: {reducedMotion: boolean}) {
   const parts = useMemo(
     () => ({
       pivot: hero.getObjectByName('pivot'),
-      web: hero.getObjectByName('web'),
       body: hero.getObjectByName('body'),
       head: hero.getObjectByName('head'),
     }),
     [hero],
   );
+  const dpr = useThree((s) => s.viewport.dpr);
+  const invalidate = useThree((s) => s.invalidate);
   const pointer = useRef({x: 0, y: 0, active: false});
   const start = useRef<number | null>(null);
+
+  useEffect(() => {
+    setDotScale(hero, dpr);
+    invalidate();
+  }, [hero, dpr, invalidate]);
+
+  // Turning reduced motion on mid-swing should land on the still pose, not freeze wherever it was.
+  useEffect(() => {
+    if (!reducedMotion) return;
+    restPose(hero, WEB_LENGTH);
+    invalidate();
+  }, [hero, reducedMotion, invalidate]);
 
   useEffect(() => {
     if (reducedMotion) return;
@@ -40,30 +52,18 @@ export function HeroCharacter({reducedMotion}: {reducedMotion: boolean}) {
     };
   }, [reducedMotion]);
 
-  useEffect(
-    () => () => {
-      hero.traverse((o) => {
-        if (o instanceof THREE.Mesh) o.geometry.dispose();
-      });
-    },
-    [hero],
-  );
+  useEffect(() => () => disposeHero(hero), [hero]);
 
   useFrame(({clock}, delta) => {
     if (reducedMotion) return;
     const t = clock.elapsedTime;
     start.current ??= t;
-    const drop = dropOffset(t - start.current);
-    const length = Math.max(0.1, WEB_LENGTH - drop);
-    if (parts.web) {
-      parts.web.scale.y = length;
-      parts.web.position.y = -length / 2;
+    if (parts.pivot) {
+      // Drop-in slides the whole rig (web anchor is above the frame), so the full spring height is visible.
+      parts.pivot.position.y = dropOffset(t - start.current);
+      parts.pivot.rotation.z = sway(t);
     }
-    if (parts.body) {
-      parts.body.position.y = -length;
-      parts.body.rotation.y = twist(t);
-    }
-    if (parts.pivot) parts.pivot.rotation.z = sway(t);
+    if (parts.body) parts.body.rotation.y = twist(t);
     const target = pointer.current.active ? headLook(pointer.current.x, pointer.current.y) : headLook(Math.sin(t * 0.4) * 0.5, 0);
     if (parts.head) {
       parts.head.rotation.y = damp(parts.head.rotation.y, target.yaw, 5, delta);
