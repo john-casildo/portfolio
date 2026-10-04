@@ -20,7 +20,7 @@ test.describe('phone', () => {
     expect(visible.length).toBeGreaterThanOrEqual(2);
     const overlaps = await page.evaluate(() => {
       const hit = (a: DOMRect, b: DOMRect) => a.left < b.right && b.left < a.right && a.top < b.bottom && b.top < a.bottom;
-      const stickers = Array.from(document.querySelectorAll('[data-sticker]')).filter((el) => (el as HTMLElement).offsetParent !== null);
+      const stickers = Array.from(document.querySelectorAll('[data-sticker], main [data-graffiti]')).filter((el) => (el as HTMLElement).offsetParent !== null);
       // Text blocks are measured by their text (block boxes span the full row); controls by their box.
       const rectOf = (el: Element) => {
         if (/^(A|BUTTON|INPUT|TEXTAREA)$/.test(el.tagName)) return el.getBoundingClientRect();
