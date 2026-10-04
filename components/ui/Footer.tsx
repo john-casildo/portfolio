@@ -11,6 +11,7 @@ export async function Footer() {
           <a href={site.github} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-12 items-center px-2 underline">GitHub</a>
           <a href={`mailto:${site.email}`} className="inline-flex min-h-12 items-center px-2 underline">{site.email}</a>
         </div>
+        <p className="w-full text-xs opacity-70">{t('fanArt')}</p>
       </div>
     </footer>
   );

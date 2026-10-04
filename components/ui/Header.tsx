@@ -14,7 +14,7 @@ export async function Header() {
         </Link>
         <nav aria-label={t('label')} className="order-last flex w-full justify-between md:order-none md:w-auto md:justify-center md:gap-2">
           {SECTIONS.map((id) => (
-            <Link key={id} href={`/#${id}`} className="inline-flex min-h-12 items-center px-1 text-sm font-medium hover:text-denim sm:px-3 sm:text-base">
+            <Link key={id} href={`/#${id}`} className="inline-flex min-h-12 items-center px-1 text-sm font-medium hover:text-red sm:px-3 sm:text-base">
               {t(id)}
             </Link>
           ))}

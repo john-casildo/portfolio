@@ -5,7 +5,7 @@ async function wake3D(page: Page) {
   await expect(async () => {
     step++;
     await page.mouse.move(100 + step * 7, 100 + step * 5);
-    await expect(page.getByTestId('bg-canvas').locator('canvas')).toBeAttached({timeout: 500});
+    await expect(page.getByTestId('mascot-canvas').locator('canvas')).toBeAttached({timeout: 500});
   }).toPass();
 }
 
@@ -29,7 +29,7 @@ test('mascot keeps its description after the 3D loads', async ({page}) => {
   await page.goto('/en');
   await wake3D(page);
   await expect(page.getByTestId('mascot-canvas').locator('canvas')).toBeAttached();
-  await expect(page.getByRole('img', {name: /mascot/i})).toBeVisible();
+  await expect(page.getByRole('img', {name: /hero/i})).toBeVisible();
 });
 
 test('logo returns to the top of the home page', async ({page}) => {

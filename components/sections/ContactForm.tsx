@@ -8,7 +8,7 @@ import {contactSchema, fieldErrors, type ContactField} from '@/lib/contact-schem
 type Status = 'idle' | 'sending' | 'success' | 'failure' | 'rate_limited';
 
 const inputClass =
-  'mt-1 block min-h-12 w-full rounded-lg border-2 border-ink bg-[#F7F3E8] px-3 py-2 text-base aria-[invalid=true]:border-spray';
+  'mt-1 block min-h-12 w-full rounded-lg border-2 border-ink bg-[#F7F3E8] px-3 py-2 text-base aria-[invalid=true]:border-red';
 
 export function ContactForm({directLinks}: {directLinks: ReactNode}) {
   const t = useTranslations('Contact');
@@ -68,7 +68,7 @@ export function ContactForm({directLinks}: {directLinks: ReactNode}) {
       <label htmlFor={`contact-${name}`} className="font-bold">{t(name)}</label>
       {input}
       {errors.includes(name) && (
-        <p id={`contact-${name}-error`} className="mt-1 font-medium text-ink underline decoration-spray decoration-2">
+        <p id={`contact-${name}-error`} className="mt-1 font-medium text-ink underline decoration-red decoration-2">
           {t(`errors.${name}`)}
         </p>
       )}
@@ -86,7 +86,7 @@ export function ContactForm({directLinks}: {directLinks: ReactNode}) {
       {field('name', <input {...a11y('name')} type="text" autoComplete="name" maxLength={100} className={inputClass} />)}
       {field('email', <input {...a11y('email')} type="email" autoComplete="email" maxLength={254} className={inputClass} />)}
       {field('message', <textarea {...a11y('message')} rows={5} maxLength={2000} className={inputClass} />)}
-      <div aria-hidden="true" className="absolute -left-[9999px] top-0">
+      <div aria-hidden="true" className="pointer-events-none absolute left-0 top-0 h-px w-px overflow-hidden opacity-0">
         <label>
           Company
           <input name="company" type="text" tabIndex={-1} autoComplete="off" />
