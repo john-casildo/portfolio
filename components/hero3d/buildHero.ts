@@ -2,8 +2,9 @@ import * as THREE from 'three';
 import {createToonMaterial} from './toonMaterial';
 
 const COLORS = {suit: '#111114', red: '#E10600', white: '#F7F5F0', ink: '#0B0B0B'} as const;
-const OUTLINE = new THREE.MeshBasicMaterial({color: COLORS.ink, side: THREE.BackSide});
-const materials = new Map<string, THREE.Material>();
+// Rebuilt per `buildHero` call (it runs synchronously) so each hero owns — and can dispose — its materials.
+let outlineMaterial = new THREE.MeshBasicMaterial({color: COLORS.ink, side: THREE.BackSide});
+let materials = new Map<string, THREE.Material>();
 
 function material(color: string, webLines = false): THREE.Material {
   const key = `${color}:${webLines}`;
@@ -19,12 +20,20 @@ function part(name: string, geometry: THREE.BufferGeometry, color: string, {webL
   const mesh = new THREE.Mesh(geometry, material(color, webLines));
   mesh.name = name;
   if (outline > 0) {
-    const shell = new THREE.Mesh(geometry, OUTLINE);
+    const shell = new THREE.Mesh(geometry, outlineMaterial);
     shell.scale.setScalar(outline);
     shell.userData.outline = true;
     mesh.add(shell);
   }
   return mesh;
+}
+
+/** How far the web continues above the anchor, so it stays attached to the top edge while the rig bounces. */
+const WEB_ABOVE_ANCHOR = 2;
+
+function placeWeb(web: THREE.Object3D, webLength: number): void {
+  web.scale.y = webLength + WEB_ABOVE_ANCHOR;
+  web.position.y = (WEB_ABOVE_ANCHOR - webLength) / 2;
 }
 
 const capsule = (radius: number, length: number) => new THREE.CapsuleGeometry(radius, length, 4, 10);
@@ -78,6 +87,8 @@ function emblem(): THREE.Group {
 
 /** Hero hanging upside down from a web (pure; no renderer needed). Root origin = top web anchor. */
 export function buildHero({webLength = 1.0} = {}): THREE.Group {
+  materials = new Map();
+  outlineMaterial = new THREE.MeshBasicMaterial({color: COLORS.ink, side: THREE.BackSide});
   const root = new THREE.Group();
   root.name = 'hero';
 
@@ -86,8 +97,7 @@ export function buildHero({webLength = 1.0} = {}): THREE.Group {
 
   const web = new THREE.Mesh(new THREE.CylinderGeometry(0.012, 0.012, 1, 6), new THREE.MeshBasicMaterial({color: COLORS.white}));
   web.name = 'web';
-  web.scale.y = webLength;
-  web.position.y = -webLength / 2;
+  placeWeb(web, webLength);
   // Ink casing behind the white line so the web reads on light paper.
   const webOutline = new THREE.Mesh(new THREE.CylinderGeometry(0.024, 0.024, 1, 6), new THREE.MeshBasicMaterial({color: COLORS.ink}));
   webOutline.name = 'webOutline';
@@ -188,4 +198,44 @@ export function countTriangles(object: THREE.Object3D): number {
     total += (g.index ? g.index.count : g.getAttribute('position').count) / 3;
   });
   return total;
+}
+
+const DOT_SIZE_CSS_PX = 6;
+
+/** Keeps halftone dots the same size in CSS pixels regardless of the device pixel ratio. */
+export function setDotScale(hero: THREE.Object3D, dpr: number): void {
+  hero.traverse((o) => {
+    if (o instanceof THREE.Mesh && o.material instanceof THREE.ShaderMaterial && o.material.uniforms.uDotSize) {
+      o.material.uniforms.uDotSize.value = DOT_SIZE_CSS_PX * dpr;
+    }
+  });
+}
+
+/** Resets every animated joint to the still pose (used when reduced motion turns on mid-animation). */
+export function restPose(hero: THREE.Object3D, webLength: number): void {
+  const pivot = hero.getObjectByName('pivot');
+  const body = hero.getObjectByName('body');
+  const head = hero.getObjectByName('head');
+  const web = hero.getObjectByName('web');
+  pivot?.rotation.set(0, 0, 0);
+  pivot?.position.setY(0);
+  body?.rotation.set(0, 0, 0);
+  body?.position.setY(-webLength);
+  head?.rotation.set(0, 0, 0);
+  if (web) placeWeb(web, webLength);
+}
+
+/** Frees GPU resources owned by this hero (geometries and its per-instance materials). */
+export function disposeHero(hero: THREE.Object3D): void {
+  const seen = new Set<THREE.Material>();
+  hero.traverse((o) => {
+    if (!(o instanceof THREE.Mesh)) return;
+    o.geometry.dispose();
+    for (const m of Array.isArray(o.material) ? o.material : [o.material]) {
+      if (!seen.has(m)) {
+        seen.add(m);
+        m.dispose();
+      }
+    }
+  });
 }

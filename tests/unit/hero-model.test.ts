@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import {describe, expect, test} from 'vitest';
-import {buildHero, countTriangles} from '@/components/hero3d/buildHero';
+import {buildHero, countTriangles, restPose, setDotScale} from '@/components/hero3d/buildHero';
 import {createToonMaterial, TOON_FRAGMENT} from '@/components/hero3d/toonMaterial';
 
 describe('buildHero', () => {
@@ -48,4 +48,51 @@ describe('review fixes', () => {
     expect(outline).toBeDefined();
     expect(((outline!.material as THREE.MeshBasicMaterial).color.getHexString())).toBe('0b0b0b');
   });
+});
+
+describe('minor fixes', () => {
+  const firstToon = (g: THREE.Object3D) => {
+    let found: THREE.ShaderMaterial | undefined;
+    g.traverse((o) => {
+      if (!found && o instanceof THREE.Mesh && o.material instanceof THREE.ShaderMaterial) found = o.material;
+    });
+    return found!;
+  };
+
+  test('each hero gets its own materials so they can be disposed on unmount', () => {
+    expect(firstToon(buildHero())).not.toBe(firstToon(buildHero()));
+  });
+
+  test('halftone dot size follows the device pixel ratio', () => {
+    const hero = buildHero();
+    setDotScale(hero, 2);
+    hero.traverse((o) => {
+      if (o instanceof THREE.Mesh && o.material instanceof THREE.ShaderMaterial) expect(o.material.uniforms.uDotSize!.value).toBe(12);
+    });
+  });
+
+  test('restPose undoes sway, twist, head turn, and drop', () => {
+    const hero = buildHero({webLength: 0.6});
+    const get = (n: string) => hero.getObjectByName(n)!;
+    get('pivot').rotation.z = 0.3;
+    get('pivot').position.y = 0.8;
+    get('body').rotation.y = 0.4;
+    get('head').rotation.set(0.2, 0.3, 0);
+    restPose(hero, 0.6);
+    expect(get('pivot').rotation.z).toBe(0);
+    expect(get('pivot').position.y).toBe(0);
+    expect(get('body').rotation.y).toBe(0);
+    expect(get('head').rotation.x).toBe(0);
+    expect(get('head').rotation.y).toBe(0);
+    expect(get('body').position.y).toBeCloseTo(-0.6);
+  });
+});
+
+test('web extends well above the anchor so a bouncing drop-in never detaches it from the top edge', () => {
+  const hero = buildHero({webLength: 0.6});
+  hero.updateMatrixWorld(true);
+  const web = hero.getObjectByName('web') as THREE.Mesh;
+  const box = new THREE.Box3().setFromObject(web);
+  expect(box.max.y).toBeGreaterThan(1.5);
+  expect(box.min.y).toBeCloseTo(-0.6, 1);
 });

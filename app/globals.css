@@ -57,7 +57,8 @@ body {
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  [data-reveal] { transition: none; opacity: 1 !important; transform: none !important; }
+  [data-reveal] { transition: none; opacity: 1 !important; }
+  [data-reveal]:not(.tilt-l):not(.tilt-r) { transform: none !important; }
   .btn-press, .tilt-l, .tilt-r { transition: none; }
   .ticker-track { animation: none; }
 }
