@@ -7,6 +7,7 @@ import {Hero} from '@/components/sections/Hero';
 import {Services} from '@/components/sections/Services';
 import {ProjectsSection} from '@/components/sections/ProjectsSection';
 import {About} from '@/components/sections/About';
+import {GraffitiWall} from '@/components/zine/Graffiti';
 import {Contact} from '@/components/sections/Contact';
 import {SectionObserver} from '@/components/SectionObserver';
 
@@ -20,6 +21,7 @@ export default async function Home({params}: {params: Promise<{locale: string}>}
       <Hero />
       <Services />
       <ProjectsSection projects={getProjects(locale)} />
+      <GraffitiWall />
       <About />
       <Contact />
       <SectionObserver />
