@@ -48,7 +48,7 @@ body {
 .btn-press:active { transform: translateY(3px); box-shadow: 0 0 0 var(--color-ink); }
 
 .peel { transform: rotate(var(--tilt, 0deg)); transition: transform 180ms ease; }
-.peel:hover { transform: rotate(var(--tilt, 0deg)) translateY(-4px) scale(1.06); }
+.peel:hover, .boombox:hover .peel { transform: rotate(var(--tilt, 0deg)) translateY(-4px) scale(1.06); }
 
 .pose-pop { animation: pose-pop 250ms steps(3, end); transform-box: fill-box; transform-origin: 50% 100%; }
 @keyframes pose-pop { 0% { transform: scale(0.92) rotate(-2deg); } 50% { transform: scale(1.04) rotate(1deg); } 100% { transform: none; } }
@@ -78,7 +78,7 @@ body {
   .btn-press, .tilt-l, .tilt-r { transition: none; }
   .ticker-track { animation: none; }
   .menu-in { animation: none; }
-  .peel, .peel:hover { transition: none; transform: rotate(var(--tilt, 0deg)); }
+  .peel, .peel:hover, .boombox:hover .peel { transition: none; transform: rotate(var(--tilt, 0deg)); }
   .boombox[data-playing="true"] .speaker { animation: none; }
   .boombox[data-playing="true"] .note { animation: none; opacity: 1; }
 }

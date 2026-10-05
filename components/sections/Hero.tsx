@@ -41,7 +41,7 @@ export async function Hero() {
           <div className="absolute inset-y-0 right-0 w-[64%]">
             <Avatar label={t('mascotAlt')} />
           </div>
-          <Boombox playLabel={t('boomboxPlay')} stopLabel={t('boomboxStop')} className="bottom-2 left-0 w-28 sm:w-36" />
+          <Boombox playLabel={t('boomboxPlay')} stopLabel={t('boomboxStop')} className="bottom-2 left-1 w-40 sm:w-52" />
           <p aria-hidden="true" className="pointer-events-none absolute left-1 top-2 flex rotate-[-6deg] items-center gap-1 font-tag text-lg">
             {t('tapHint')}
             <Doodle kind="arrow" className="h-6 w-10 rotate-[20deg]" />
