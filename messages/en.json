@@ -11,7 +11,9 @@
     "about": "About",
     "contact": "Contact",
     "switchTo": "ES",
-    "switchLabel": "Ver en español"
+    "switchLabel": "Ver en español",
+    "open": "Open menu",
+    "close": "Close menu"
   },
   "Hero": {
     "tag": "builds the web",

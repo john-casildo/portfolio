@@ -60,6 +60,9 @@ body {
 @keyframes pump { 0% { transform: scale(1); } 100% { transform: scale(1.09); } }
 @keyframes note { 0% { opacity: 0; transform: translate(0, 0); } 20% { opacity: 1; } 100% { opacity: 0; transform: translate(8px, -30px); } }
 
+.menu-in { animation: menu-in 200ms steps(3, end); }
+@keyframes menu-in { from { clip-path: inset(0 0 100% 0); } to { clip-path: inset(0 0 0 0); } }
+
 .ticker { overflow: hidden; }
 .ticker-track { animation: ticker 40s linear infinite; }
 .ticker:hover .ticker-track { animation-play-state: paused; }
@@ -74,6 +77,7 @@ body {
   [data-reveal]:not(.tilt-l):not(.tilt-r) { transform: none !important; }
   .btn-press, .tilt-l, .tilt-r { transition: none; }
   .ticker-track { animation: none; }
+  .menu-in { animation: none; }
   .peel, .peel:hover { transition: none; transform: rotate(var(--tilt, 0deg)); }
   .boombox[data-playing="true"] .speaker { animation: none; }
   .boombox[data-playing="true"] .note { animation: none; opacity: 1; }

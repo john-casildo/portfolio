@@ -11,7 +11,9 @@
     "about": "Sobre mí",
     "contact": "Contacto",
     "switchTo": "EN",
-    "switchLabel": "View in English"
+    "switchLabel": "View in English",
+    "open": "Abrir menú",
+    "close": "Cerrar menú"
   },
   "Hero": {
     "tag": "construye la web",
