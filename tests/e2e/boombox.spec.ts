@@ -1,5 +1,13 @@
 import {expect, test} from '@playwright/test';
 
+// Smooth scrolling (html { scroll-behavior: smooth }) can leave the page mid-scroll when a test measures
+// positions under load; jump instantly instead.
+test.beforeEach(async ({page}) => {
+  await page.addInitScript(() => {
+    document.addEventListener('DOMContentLoaded', () => document.documentElement.style.setProperty('scroll-behavior', 'auto', 'important'));
+  });
+});
+
 test('boombox plays the 10-second clip on click and stops on second click', async ({page}) => {
   await page.goto('/en');
   const boombox = page.getByRole('button', {name: /play music/i});
