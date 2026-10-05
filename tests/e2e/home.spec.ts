@@ -28,14 +28,29 @@ test.describe('phone width', () => {
   for (const [locale, contact] of [['en', 'Contact'], ['es', 'Contacto']] as const) {
     test(`${locale} section nav is reachable on phones`, async ({page}) => {
       await page.goto(`/${locale}`);
-      const link = page.getByRole('navigation').getByRole('link', {name: contact});
-      await expect(link).toBeVisible();
+      const toggle = page.getByRole('button', {name: /menu|menú/i});
+      await expect(toggle).toHaveAttribute('aria-expanded', 'false');
+      await toggle.click();
+      await expect(toggle).toHaveAttribute('aria-expanded', 'true');
+      await expect(page.getByRole('dialog').getByRole('link').first()).toBeFocused();
+      const link = page.getByRole('dialog').getByRole('link', {name: contact});
       await link.click();
       await expect(page).toHaveURL(/#contact$/);
+      await expect(page.getByRole('dialog')).toHaveCount(0);
       const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
       expect(overflow).toBeLessThanOrEqual(0);
     });
   }
+
+  test('menu closes on Escape and returns focus to the button', async ({page}) => {
+    await page.goto('/en');
+    const toggle = page.getByRole('button', {name: /menu/i});
+    await toggle.click();
+    await expect(page.getByRole('dialog')).toBeVisible();
+    await page.keyboard.press('Escape');
+    await expect(page.getByRole('dialog')).toHaveCount(0);
+    await expect(toggle).toBeFocused();
+  });
 
   test('no horizontal scroll', async ({page}) => {
     for (const locale of ['en', 'es']) {
