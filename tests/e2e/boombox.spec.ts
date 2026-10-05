@@ -35,3 +35,17 @@ test('spanish labels', async ({page}) => {
   await page.goto('/es');
   await expect(page.getByRole('button', {name: /reproducir música/i})).toBeVisible();
 });
+
+test('the whole boombox is clickable, corners included, and it is a comfortable size', async ({page, isMobile}) => {
+  await page.goto('/en');
+  const art = page.locator('.boombox svg');
+  await art.scrollIntoViewIfNeeded();
+  const box = await art.boundingBox();
+  if (!box) throw new Error('no boombox');
+  expect(box.width).toBeGreaterThanOrEqual(isMobile ? 150 : 190);
+  for (const [fx, fy] of [[0.04, 0.06], [0.96, 0.94], [0.96, 0.06], [0.04, 0.94]]) {
+    const before = await page.locator('.boombox').getAttribute('aria-pressed');
+    await page.mouse.click(box.x + box.width * fx, box.y + box.height * fy);
+    await expect(page.locator('.boombox')).not.toHaveAttribute('aria-pressed', before ?? '');
+  }
+});
