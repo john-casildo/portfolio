@@ -2,6 +2,8 @@ import {expect, test, type Page} from '@playwright/test';
 
 async function fill(page: Page, {name = 'Ana', email = 'ana@example.com', message = 'I need a website for my bakery.'} = {}) {
   const form = page.getByTestId('contact-form');
+  // Submit is disabled until hydration; typing earlier can race React under heavy parallel load.
+  await expect(form.getByRole('button', {name: 'Send message'})).toBeEnabled();
   await form.getByLabel('Name').fill(name);
   await form.getByLabel('Email').fill(email);
   await form.getByLabel('Message').fill(message);

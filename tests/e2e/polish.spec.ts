@@ -25,6 +25,7 @@ test('logo returns to the top of the home page', async ({page}) => {
 test('invalid contact submit focuses the first invalid field', async ({page}) => {
   await page.goto('/en#contact');
   const form = page.getByTestId('contact-form');
+  await expect(form.getByRole('button', {name: 'Send message'})).toBeEnabled(); // hydrated
   await form.getByLabel('Email').fill('nope');
   await form.getByRole('button', {name: 'Send message'}).click();
   await expect(form.getByLabel('Name')).toBeFocused();
@@ -34,6 +35,7 @@ test('server 400 without field details shows the failure message', async ({page}
   await page.route('**/api/contact', (route) => route.fulfill({status: 400, json: {error: 'invalid', fields: []}}));
   await page.goto('/en#contact');
   const form = page.getByTestId('contact-form');
+  await expect(form.getByRole('button', {name: 'Send message'})).toBeEnabled(); // hydrated
   await form.getByLabel('Name').fill('Ana');
   await form.getByLabel('Email').fill('ana@example.com');
   await form.getByLabel('Message').fill('I need a website for my bakery.');

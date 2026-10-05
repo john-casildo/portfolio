@@ -1,5 +1,13 @@
 import {expect, test} from '@playwright/test';
 
+// Smooth scrolling (html { scroll-behavior: smooth }) can leave the page mid-scroll when a test measures
+// positions under load; jump instantly instead.
+test.beforeEach(async ({page}) => {
+  await page.addInitScript(() => {
+    document.addEventListener('DOMContentLoaded', () => document.documentElement.style.setProperty('scroll-behavior', 'auto', 'important'));
+  });
+});
+
 const STACK = ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'Supabase', 'PostgreSQL', 'FastAPI', 'Docker', 'SwiftUI', 'Jetpack Compose'];
 
 test('about shows a logo for every tool, each with its name for screen readers', async ({page}) => {
