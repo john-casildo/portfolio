@@ -45,3 +45,12 @@ test('home has localized metadata', async ({page}) => {
   await expect(page).toHaveTitle(/Sitios y aplicaciones web/);
   await expect(page.locator('link[rel="alternate"][hreflang="en"]')).toHaveCount(1);
 });
+
+test('case study ends with a call to action to the contact section', async ({page}) => {
+  await page.goto('/es/projects/presencia');
+  const cta = page.getByTestId('case-cta');
+  await expect(cta.getByRole('heading', {name: 'Construyamos el tuyo'})).toBeVisible();
+  await cta.getByRole('link', {name: /Hablemos/}).click();
+  await expect(page).toHaveURL(/\/es#contact$/);
+  await expect(page.locator('#contact').getByTestId('social-whatsapp')).toBeVisible();
+});

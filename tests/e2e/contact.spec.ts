@@ -88,7 +88,8 @@ test('social icons link out with accessible names', async ({page}) => {
   await expect(social.getByRole('link', {name: 'X (Twitter)'})).toHaveAttribute('href', 'https://x.com/John_Casildo');
   await expect(social.getByRole('link', {name: 'WhatsApp'})).toHaveAttribute('href', 'https://wa.me/50661090625');
   await expect(social.getByRole('link', {name: 'Email'})).toHaveAttribute('href', 'mailto:johnbsns@outlook.com');
-  await expect(page.locator('footer').getByTestId('social-github')).toBeVisible();
+  // Contact links appear once: in the contact section, not again in the footer.
+  await expect(page.locator('footer').getByRole('link')).toHaveCount(0);
 });
 
 test('CV opens in a viewer with a download button, in each language', async ({page, request}) => {
@@ -112,8 +113,8 @@ test('CV opens in a viewer with a download button, in each language', async ({pa
     await page.keyboard.press('Escape');
     await expect(dialog).toBeHidden();
 
-    // The footer icon opens the same viewer; the close button shuts it.
-    await page.locator('footer').getByTestId('social-resume').click();
+    // The hero CV button opens the same viewer; the close button shuts it.
+    await page.getByTestId('hero-cv').click();
     await expect(dialog).toBeVisible();
     await dialog.getByRole('button', {name: locale === 'es' ? 'Cerrar' : 'Close'}).click();
     await expect(dialog).toBeHidden();
@@ -132,7 +133,7 @@ test('there is no separate View CV button', async ({page}) => {
 test('CV links still point at the PDF for no-JS visitors', async ({page}) => {
   await page.goto('/en#contact');
   await expect(page.locator('#contact').getByTestId('social-resume')).toHaveAttribute('href', '/cv/John_Casildo_CV_EN.pdf');
-  await expect(page.locator('footer').getByTestId('social-resume')).toHaveAttribute('href', '/cv/John_Casildo_CV_EN.pdf');
+  await expect(page.getByTestId('hero-cv')).toHaveAttribute('href', '/cv/John_Casildo_CV_EN.pdf');
 });
 
 test('spanish labels', async ({page}) => {

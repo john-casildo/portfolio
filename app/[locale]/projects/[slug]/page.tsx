@@ -8,6 +8,7 @@ import {routing} from '@/i18n/routing';
 import {Link} from '@/i18n/navigation';
 import {getProject, getProjects, getSlugs, validateContent} from '@/lib/projects';
 import {Badge} from '@/components/ui/Badge';
+import {Tape} from '@/components/zine/Tape';
 import {buttonClass} from '@/components/ui/button';
 import {mdxComponents} from '@/components/mdx';
 
@@ -65,6 +66,15 @@ export default async function ProjectPage({params}: {params: Promise<Params>}) {
         <div className="mt-4">
           <MDXRemote source={project.body} components={mdxComponents} />
         </div>
+        <aside data-testid="case-cta" className="sticker tilt-l relative mt-14 p-6">
+          <Tape />
+          <p className="font-tag text-lg">{t('ctaTag')}</p>
+          <h2 className="ink-shadow mt-1 font-display text-4xl leading-none text-red">{t('ctaTitle')}</h2>
+          <p className="mt-3 text-lg">{t('ctaText')}</p>
+          <Link href="/#contact" className={`${buttonClass('primary')} mt-5`}>
+            {t('ctaButton')} →
+          </Link>
+        </aside>
         {next && next.slug !== slug && (
           <Link href={`/projects/${next.slug}`} className={`${buttonClass('primary')} mt-12`}>
             {t('next')}: {next.title} →
