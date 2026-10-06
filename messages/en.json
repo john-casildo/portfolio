@@ -103,7 +103,12 @@
     "x": "X (Twitter)",
     "github": "GitHub",
     "email": "Email",
-    "resume": "View my CV (PDF)",
-    "download": "Download CV"
+    "resume": "View & download my CV",
+    "download": "Download PDF",
+    "viewCv": "View CV",
+    "close": "Close",
+    "cvTitle": "My CV",
+    "openTab": "Open the PDF in a new tab",
+    "cvAlt": "CV of John Casildo, full-stack web and mobile developer"
   }
 }

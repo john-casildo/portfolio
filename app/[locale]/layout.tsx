@@ -10,7 +10,10 @@ import {Header} from '@/components/ui/Header';
 import {Footer} from '@/components/ui/Footer';
 import {Ticker} from '@/components/zine/Ticker';
 import {EdgeGraffiti} from '@/components/zine/Graffiti';
-import {site} from '@/lib/site';
+import {resumeUrl, site} from '@/lib/site';
+import {CvDialog} from '@/components/ui/CvDialog';
+import cvEn from '@/assets/cv/John_Casildo_CV_EN.jpg';
+import cvEs from '@/assets/cv/John_Casildo_CV_ES.jpg';
 import '@/app/globals.css';
 
 type Props = {children: React.ReactNode; params: Promise<{locale: string}>};
@@ -37,6 +40,7 @@ export default async function LocaleLayout({children, params}: Props) {
   if (!hasLocale(routing.locales, locale)) notFound();
   setRequestLocale(locale);
   const tNav = await getTranslations('Nav');
+  const tSocial = await getTranslations('Social');
 
   return (
     <html lang={locale} className={fontVariables}>
@@ -56,6 +60,11 @@ export default async function LocaleLayout({children, params}: Props) {
           </main>
           <Ticker />
           <Footer />
+          <CvDialog
+            image={locale === 'es' ? cvEs : cvEn}
+            pdfHref={resumeUrl(locale)}
+            labels={{title: tSocial('cvTitle'), download: tSocial('download'), close: tSocial('close'), openTab: tSocial('openTab'), alt: tSocial('cvAlt')}}
+          />
         </NextIntlClientProvider>
         <Analytics />
         <SpeedInsights />
