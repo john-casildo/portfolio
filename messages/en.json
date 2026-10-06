@@ -68,7 +68,6 @@
     "success": "Message sent — I'll reply within 48 hours.",
     "failure": "Couldn't send your message. Reach me directly instead:",
     "rateLimited": "Too many messages. Try again in a few minutes, or reach me directly:",
-    "direct": "Prefer to message directly?",
     "whatsapp": "WhatsApp",
     "emailCta": "Email me",
     "whatsappPrefill": "Hi John! I'd like to talk about a project.",

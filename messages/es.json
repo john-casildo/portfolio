@@ -68,7 +68,6 @@
     "success": "Mensaje enviado — te respondo en menos de 48 horas.",
     "failure": "No se pudo enviar tu mensaje. Escríbeme directamente:",
     "rateLimited": "Demasiados mensajes. Intenta de nuevo en unos minutos o escríbeme directamente:",
-    "direct": "¿Prefieres escribir directamente?",
     "whatsapp": "WhatsApp",
     "emailCta": "Escríbeme",
     "whatsappPrefill": "¡Hola John! Me gustaría hablar sobre un proyecto.",

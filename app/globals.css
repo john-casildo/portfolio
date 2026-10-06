@@ -48,6 +48,7 @@ body {
 .btn-press:active { transform: translateY(3px); box-shadow: 0 0 0 var(--color-ink); }
 
 .social-badge {
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -65,6 +66,39 @@ body {
   transform: rotate(0deg) translate(-2px, -2px);
   box-shadow: 6px 6px 0 var(--color-ink);
 }
+/* Name label that pops up above an icon on hover/focus, like a strip of tape with marker on it. */
+.social-tip {
+  display: none;
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 50%;
+  z-index: 20;
+  padding: 3px 9px 2px;
+  border: 2px solid var(--color-ink);
+  background-color: var(--color-ink);
+  color: var(--color-paper);
+  font-family: var(--font-tag);
+  font-size: 0.95rem;
+  line-height: 1.2;
+  white-space: nowrap;
+  box-shadow: 3px 3px 0 var(--color-red);
+  transform: translateX(-50%) rotate(-3deg);
+  pointer-events: none;
+}
+.social-tip::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -6px;
+  border: 6px solid transparent;
+  border-top-color: var(--color-ink);
+}
+.social-badge:hover .social-tip, .social-badge:focus-visible .social-tip {
+  display: block;
+  animation: tip-pop 160ms steps(3, end);
+}
+@keyframes tip-pop { 0% { transform: translateX(-50%) rotate(-3deg) scale(0.7); } 100% { transform: translateX(-50%) rotate(-3deg) scale(1); } }
 .social-badge:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--color-ink); }
 
 .peel { transform: rotate(var(--tilt, 0deg)); transition: transform 180ms ease; }
@@ -96,6 +130,7 @@ body {
   [data-reveal] { transition: none; opacity: 1 !important; }
   [data-reveal]:not(.tilt-l):not(.tilt-r) { transform: none !important; }
   .btn-press, .tilt-l, .tilt-r, .social-badge { transition: none; }
+  .social-badge .social-tip { animation: none !important; }
   .ticker-track { animation: none; }
   .menu-in { animation: none; }
   .peel, .peel:hover, .boombox:hover .peel { transition: none; transform: rotate(var(--tilt, 0deg)); }

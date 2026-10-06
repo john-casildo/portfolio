@@ -57,11 +57,25 @@ test('rate limited message', async ({page}) => {
   await expect(page.getByTestId('contact-failure')).toContainText('Too many messages');
 });
 
-test('direct links use the real WhatsApp number and email', async ({page}) => {
+test('contact column uses the icons, not duplicate WhatsApp/email buttons', async ({page}) => {
   await page.goto('/en#contact');
   const section = page.locator('#contact');
-  await expect(section.getByTestId('whatsapp-link').first()).toHaveAttribute('href', /^https:\/\/wa\.me\/50661090625\?text=/);
-  await expect(section.getByTestId('email-link').first()).toHaveAttribute('href', 'mailto:johnbsns@outlook.com');
+  await expect(section.getByTestId('social-whatsapp')).toHaveAttribute('href', /^https:\/\/wa\.me\/50661090625/);
+  await expect(section.getByTestId('whatsapp-link')).toHaveCount(0);
+  await expect(section.getByTestId('email-link')).toHaveCount(0);
+});
+
+test('hovering an icon shows its name', async ({page, isMobile}) => {
+  test.skip(isMobile, 'phones have no hover');
+  await page.goto('/es#contact');
+  const linkedin = page.locator('#contact').getByTestId('social-linkedin');
+  const tip = linkedin.locator('.social-tip');
+  await expect(tip).toBeHidden();
+  await linkedin.hover();
+  await expect(tip).toBeVisible();
+  await expect(tip).toHaveText('LinkedIn');
+  await page.locator('#contact').getByTestId('social-resume').hover();
+  await expect(page.locator('#contact').getByTestId('social-resume').locator('.social-tip')).toHaveText('Ver mi CV (PDF)');
 });
 
 test('social icons link out with accessible names', async ({page}) => {

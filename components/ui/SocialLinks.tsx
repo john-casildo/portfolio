@@ -20,11 +20,13 @@ export async function SocialLinks({size = 'md', className = ''}: {size?: 'sm' | 
             href={link.href}
             {...(link.external && {target: '_blank', rel: 'noopener noreferrer'})}
             aria-label={t(link.kind as SocialKind)}
-            title={t(link.kind as SocialKind)}
             className={`social-badge ${box}`}
             style={{'--tilt': `${TILTS[i % TILTS.length]}deg`} as React.CSSProperties}
           >
             <SocialIcon kind={link.kind} size={icon} />
+            <span aria-hidden="true" className="social-tip">
+              {t(link.kind as SocialKind)}
+            </span>
           </a>
         </li>
       ))}
