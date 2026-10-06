@@ -110,8 +110,8 @@ test('CV opens in a viewer with a download button, in each language', async ({pa
     await page.keyboard.press('Escape');
     await expect(dialog).toBeHidden();
 
-    // The "View CV" button opens the same viewer; the close button shuts it.
-    await page.locator('#contact').getByTestId('cv-open').click();
+    // The footer icon opens the same viewer; the close button shuts it.
+    await page.locator('footer').getByTestId('social-resume').click();
     await expect(dialog).toBeVisible();
     await dialog.getByRole('button', {name: locale === 'es' ? 'Cerrar' : 'Close'}).click();
     await expect(dialog).toBeHidden();
@@ -122,10 +122,15 @@ test('CV opens in a viewer with a download button, in each language', async ({pa
   }
 });
 
+test('there is no separate View CV button', async ({page}) => {
+  await page.goto('/es#contact');
+  await expect(page.locator('#contact').getByRole('link', {name: 'Ver CV'})).toHaveCount(0);
+});
+
 test('CV links still point at the PDF for no-JS visitors', async ({page}) => {
   await page.goto('/en#contact');
   await expect(page.locator('#contact').getByTestId('social-resume')).toHaveAttribute('href', '/cv/John_Casildo_CV_EN.pdf');
-  await expect(page.locator('#contact').getByTestId('cv-open')).toHaveAttribute('href', '/cv/John_Casildo_CV_EN.pdf');
+  await expect(page.locator('footer').getByTestId('social-resume')).toHaveAttribute('href', '/cv/John_Casildo_CV_EN.pdf');
 });
 
 test('spanish labels', async ({page}) => {
