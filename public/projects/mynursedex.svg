@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750">
+  <defs>
+    <pattern id="dots" width="18" height="18" patternUnits="userSpaceOnUse"><circle cx="9" cy="9" r="3.2" fill="#0B0B0B"/></pattern>
+    <filter id="spray"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="11"/><feDisplacementMap in="SourceGraphic" scale="6"/></filter>
+  </defs>
+  <rect width="1200" height="750" fill="#F2EFE8"/>
+  <circle cx="1000" cy="600" r="240" fill="url(#dots)" opacity="0.18"/>
+  <g filter="url(#spray)">
+    <rect x="150" y="90" width="64" height="200" fill="#E10600" opacity="0.85"/>
+    <rect x="82" y="158" width="200" height="64" fill="#E10600" opacity="0.85"/>
+  </g>
+  <path d="M420 150 L500 150 L530 95 L570 205 L605 130 L625 150 L1100 150" fill="none" stroke="#0B0B0B" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+  <g transform="rotate(-4 600 420)">
+    <text x="606" y="456" text-anchor="middle" font-family="Impact, Haettenschweiler, 'Arial Black', sans-serif" font-size="140" fill="#0B0B0B">MYNURSEDEX</text>
+    <text x="600" y="450" text-anchor="middle" font-family="Impact, Haettenschweiler, 'Arial Black', sans-serif" font-size="140" fill="#E10600">MYNURSEDEX</text>
+  </g>
+  <rect x="300" y="540" width="600" height="64" fill="#0B0B0B" transform="rotate(2 600 572)"/>
+  <text x="600" y="583" text-anchor="middle" font-family="'Comic Sans MS', 'Marker Felt', cursive" font-size="34" fill="#F2EFE8" transform="rotate(2 600 572)">ES + EN · AI fact-checked · $0</text>
+</svg>

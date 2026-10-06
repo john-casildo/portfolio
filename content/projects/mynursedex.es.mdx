@@ -1,0 +1,27 @@
+---
+title: MyNurseDex
+summary: Referencia de estudio de enfermería bilingüe (español/inglés) para una estudiante en Costa Rica — entradas creadas desde fuentes oficiales por un pipeline de IA que se verifica a sí mismo.
+role: Desarrollador único — diseño de producto, pipeline de datos, IA y app web
+stack: [Next.js, TypeScript, Tailwind CSS, Groq, Fuse.js, GitHub Actions]
+cover: /projects/mynursedex.svg
+repo: https://github.com/john-casildo/mynursedex
+live: https://mynursedex.vercel.app
+featured: false
+order: 2
+---
+
+## Problema
+
+Una estudiante de enfermería en Costa Rica estudia en español, pero la mayoría de las buenas referencias gratuitas están en inglés, y sus apuntes estaban repartidos en PDFs y presentaciones. Necesitaba un solo lugar para buscar un medicamento, una patología, un laboratorio o una sigla en segundos, desde el celular, entre clases y prácticas, y sin presupuesto.
+
+## Lo que construí
+
+- Un pipeline ETL que toma datos de fuentes oficiales y abiertas (etiquetas de la FDA, RxNorm, MedlinePlus, libros de enfermería de OpenStax), hace que un LLM redacte cada entrada en español e inglés y valida cada entrada antes de publicarla.
+- Una verificación automática: un segundo modelo, de otra familia, revisa cada punto contra el texto completo de sus fuentes. Las citas deben existir textualmente en la fuente y cada número del punto debe aparecer en la cita, así el modelo no puede inventar evidencia. Los resultados se muestran como ✓ / ⚠ en cada entrada.
+- Planes de cuidado limitados a una lista aprobada de diagnósticos NANDA-I, porque los modelos inventan diagnósticos que suenan creíbles.
+- Búsqueda instantánea que tolera errores de escritura, tildes y ambos idiomas, y corre en el celular sin costo de servidor.
+- Un asistente "Pregúntale a la IA" que solo responde con las entradas del sitio, y solicitudes de temas que un job nocturno de GitHub Actions construye después de aprobarlas.
+
+## Resultado
+
+Unas 100 entradas bilingües en un sitio estático por $0 al mes (solo planes gratuitos), incluida la lista completa de siglas de su curso de obstetricia. Cada entrada sigue marcada como borrador de IA hasta que se revise.
