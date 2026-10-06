@@ -55,3 +55,15 @@ test('case study ends with a call to action to the contact section', async ({pag
   await expect(page).toHaveURL(/\/es#contact$/);
   await expect(page.locator('#contact').getByTestId('social-whatsapp')).toBeVisible();
 });
+
+for (const slug of ['mynursedex', 'presencia']) {
+  test(`${slug} case study shows its screenshots`, async ({page}) => {
+    await page.goto(`/es/projects/${slug}`);
+    const shots = page.getByTestId('gallery').getByRole('img');
+    await expect(shots).toHaveCount(3);
+    for (const img of await shots.all()) {
+      await img.scrollIntoViewIfNeeded();
+      await expect.poll(() => img.evaluate((el: HTMLImageElement) => el.complete && el.naturalWidth > 0)).toBe(true);
+    }
+  });
+}
