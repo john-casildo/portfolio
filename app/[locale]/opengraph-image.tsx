@@ -5,7 +5,7 @@ import {notFound} from 'next/navigation';
 import {hasLocale} from 'next-intl';
 import {getTranslations} from 'next-intl/server';
 import {routing} from '@/i18n/routing';
-import {EMBLEM} from '@/components/zine/JCStamp';
+import {EMBLEM, emblemShapes} from '@/components/zine/JCStamp';
 
 export const size = {width: 1200, height: 630};
 export const contentType = 'image/png';
@@ -50,10 +50,8 @@ export default async function OpenGraphImage({params}: {params: Promise<{locale:
             <div style={{fontFamily: 'Grotesk', fontSize: 30, lineHeight: 1.3, marginTop: 24, maxWidth: 640}}>{t('valueProp')}</div>
           </div>
           <div style={{display: 'flex', position: 'absolute', right: 40, top: 10, width: 420, height: 520, alignItems: 'center', justifyContent: 'center'}}>
-            <svg viewBox={EMBLEM.viewBox} width="470" height="470" style={{position: 'absolute', left: -60, opacity: 0.35}}>
-              <circle r={EMBLEM.ring.r} fill="none" stroke={RED} strokeWidth={EMBLEM.ring.width} />
-              <path d={EMBLEM.j} fill="none" stroke={RED} strokeWidth={EMBLEM.letterWidth} strokeLinecap="round" strokeLinejoin="round" />
-              <path d={EMBLEM.c} fill="none" stroke={RED} strokeWidth={EMBLEM.letterWidth} strokeLinecap="round" strokeLinejoin="round" />
+            <svg viewBox={EMBLEM.viewBox} width="330" height="330" style={{position: 'absolute', left: -110, opacity: 0.35, transform: 'rotate(-6deg)'}}>
+              {emblemShapes(RED)}
             </svg>
             <img src={heroSrc} width={188} height={510} alt="" style={{position: 'absolute', top: 12, left: 230}} />
           </div>

@@ -41,8 +41,8 @@ export async function Hero() {
         </div>
         <div data-slot="mascot" className="relative h-[55svh] md:h-[72svh]">
           {/* Poster layout: emblem off to the left so the JC reads beside the avatar, not hidden behind it. */}
-          <div data-stamp className="pointer-events-none absolute inset-y-0 left-0 flex w-[70%] items-center">
-            <JCStamp className="w-full text-red opacity-35" />
+          <div data-stamp className="pointer-events-none absolute inset-y-0 left-0 flex w-[56%] items-center md:-left-[12%] md:w-[52%]">
+            <JCStamp className="w-full rotate-[-6deg] text-red opacity-35" />
           </div>
           <div className="absolute inset-y-0 right-0 w-[64%]">
             <Avatar label={t('mascotAlt')} />
