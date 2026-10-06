@@ -20,7 +20,7 @@ export default async function Home({params}: {params: Promise<{locale: string}>}
     <>
       <Hero />
       <Services />
-      <ProjectsSection projects={getProjects(locale)} />
+      <ProjectsSection projects={getProjects(locale)} limit={3} />
       <GraffitiWall />
       <About />
       <Contact />

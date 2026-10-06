@@ -11,6 +11,18 @@ for (const [locale, services, work, about, contact] of [
     await expect(page.locator('#work').getByRole('heading', {level: 2})).toHaveText(work);
     await expect(page.locator('#about').getByRole('heading', {level: 2})).toHaveText(about);
     await expect(page.locator('#contact').getByRole('heading', {level: 2})).toHaveText(contact);
+    await expect(page.getByTestId('project-card')).toHaveCount(3);
+    await expect(page.getByTestId('view-all-projects')).toBeVisible();
+    await expect(page.getByTestId('project-card').first()).toContainText('Presencia');
+  });
+}
+
+for (const locale of ['en', 'es']) {
+  test(`${locale} see-all button opens every project`, async ({page}) => {
+    await page.goto(`/${locale}`);
+    await page.getByTestId('view-all-projects').click();
+    await expect(page).toHaveURL(new RegExp(`/${locale}/projects$`));
+    await expect(page.getByRole('heading', {level: 1})).toBeVisible();
     await expect(page.getByTestId('project-card')).toHaveCount(4);
     await expect(page.getByTestId('project-card').first()).toContainText('Presencia');
   });

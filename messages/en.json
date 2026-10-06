@@ -48,7 +48,11 @@
     "title": "Work",
     "featured": "Featured",
     "viewCase": "View case study",
-    "stack": "Stack"
+    "stack": "Stack",
+    "viewAll": "See all projects ({count})",
+    "allTitle": "All work",
+    "allDescription": "Everything I've built.",
+    "backHome": "Back to home"
   },
   "About": {
     "tag": "player one",

@@ -1,6 +1,6 @@
 import {expect, test} from '@playwright/test';
 
-const SLUGS = ['presencia', 'maruchan-university', 'stub'];
+const SLUGS = ['presencia', 'mynursedex', 'maruchan-university', 'stub'];
 
 for (const locale of ['en', 'es']) {
   for (const slug of SLUGS) {
@@ -37,6 +37,7 @@ test('sitemap lists both locales and projects', async ({request}) => {
   expect(res.status()).toBe(200);
   const xml = await res.text();
   expect(xml).toContain('/es/projects/presencia');
+  expect(xml).toContain('/en/projects</loc>');
   expect(xml).toContain('/en</loc>');
 });
 
