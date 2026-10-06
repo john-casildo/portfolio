@@ -1,5 +1,6 @@
-import {getTranslations} from 'next-intl/server';
+import {getLocale, getTranslations} from 'next-intl/server';
 import {buttonClass} from '@/components/ui/button';
+import {resumeUrl} from '@/lib/site';
 import {Avatar} from '@/components/avatar/Avatar';
 import {Boombox} from '@/components/zine/Boombox';
 import {Doodle} from '@/components/zine/Doodle';
@@ -9,6 +10,7 @@ import {Sticker} from '@/components/zine/Sticker';
 
 export async function Hero() {
   const t = await getTranslations('Hero');
+  const cvHref = resumeUrl(await getLocale());
   return (
     <section id="top" data-section aria-labelledby="top-title" className="relative overflow-hidden">
       <Doodle kind="star" color="red" className="absolute left-[46%] top-10 hidden w-10 md:block" />
@@ -31,6 +33,10 @@ export async function Hero() {
           <div className="mt-6 flex flex-wrap gap-3">
             <a href="#work" className={buttonClass('primary')}>{t('ctaWork')}</a>
             <a href="#contact" className={buttonClass('secondary')}>{t('ctaContact')}</a>
+            {/* Opens the CV viewer; a plain PDF link without JavaScript. */}
+            <a data-testid="hero-cv" data-cv-open href={cvHref} target="_blank" rel="noopener noreferrer" className={buttonClass('secondary')}>
+              {t('ctaCv')}
+            </a>
           </div>
         </div>
         <div data-slot="mascot" className="relative h-[55svh] md:h-[72svh]">

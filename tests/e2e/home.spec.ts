@@ -62,3 +62,13 @@ test.describe('phone width', () => {
     }
   });
 });
+
+test('hero CV button opens the CV viewer', async ({page}) => {
+  await page.goto('/es');
+  const cv = page.getByTestId('hero-cv');
+  await expect(cv).toHaveText('Mi CV');
+  await expect(cv).toHaveAttribute('href', '/cv/John_Casildo_CV_ES.pdf');
+  await cv.click();
+  await expect(page.getByTestId('cv-dialog')).toBeVisible();
+  await expect(page.getByTestId('cv-dialog').getByTestId('cv-download')).toHaveAttribute('download', 'John_Casildo_CV.pdf');
+});
