@@ -18,7 +18,7 @@ export async function ProjectsSection({projects, limit}: {projects: Project[]; l
   const t = await getTranslations('Projects');
   const ordered = featuredFirst(projects);
   const shown = limit ? ordered.slice(0, limit) : ordered;
-  const labels = {featured: t('featured'), viewCase: t('viewCase'), stack: t('stack')};
+  const labels = {featured: t('featured'), viewCase: t('viewCase'), stack: t('stack'), live: t('live'), liveLabel: t('liveLabel')};
   return (
     <section id="work" data-section aria-labelledby="work-title" className="relative overflow-hidden border-t-[3px] border-ink">
       <NumberSticker n={3} className="absolute left-4 top-6" />

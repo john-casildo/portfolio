@@ -28,7 +28,7 @@ export default async function ProjectsPage({params}: {params: Promise<{locale: s
   setRequestLocale(locale);
 
   const t = await getTranslations('Projects');
-  const labels = {featured: t('featured'), viewCase: t('viewCase'), stack: t('stack')};
+  const labels = {featured: t('featured'), viewCase: t('viewCase'), stack: t('stack'), live: t('live'), liveLabel: t('liveLabel')};
 
   return (
     <section className="bg-paper/90">

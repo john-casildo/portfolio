@@ -84,3 +84,11 @@ test('hero CV button opens the CV viewer', async ({page}) => {
   await expect(page.getByTestId('cv-dialog')).toBeVisible();
   await expect(page.getByTestId('cv-dialog').getByTestId('cv-download')).toHaveAttribute('download', 'John_Casildo_CV.pdf');
 });
+
+test('live badge only on projects with a live site, linking to it', async ({page}) => {
+  await page.goto('/es/projects');
+  const badges = page.getByTestId('live-badge');
+  await expect(badges).toHaveCount(2);
+  await expect(page.getByRole('link', {name: /MyNurseDex$/}).and(badges)).toHaveAttribute('href', 'https://mynursedex.vercel.app');
+  await expect(page.getByRole('link', {name: /Presencia$/}).and(badges)).toHaveAttribute('href', 'https://presenciaapp.vercel.app');
+});

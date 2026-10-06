@@ -52,7 +52,9 @@
     "viewAll": "See all projects ({count})",
     "allTitle": "All work",
     "allDescription": "Everything I've built.",
-    "backHome": "Back to home"
+    "backHome": "Back to home",
+    "live": "Live",
+    "liveLabel": "Visit the live site"
   },
   "About": {
     "tag": "player one",

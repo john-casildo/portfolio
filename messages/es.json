@@ -52,7 +52,9 @@
     "viewAll": "Ver todos los proyectos ({count})",
     "allTitle": "Todos los proyectos",
     "allDescription": "Todo lo que he construido.",
-    "backHome": "Volver al inicio"
+    "backHome": "Volver al inicio",
+    "live": "En línea",
+    "liveLabel": "Visitar el sitio en línea"
   },
   "About": {
     "tag": "jugador uno",
