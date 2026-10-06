@@ -18,7 +18,7 @@ test('spanish skip link', async ({page}) => {
 
 test('logo returns to the top of the home page', async ({page}) => {
   await page.goto('/en/projects/presencia');
-  await page.getByRole('link', {name: 'JC'}).click();
+  await page.getByRole('link', {name: 'John Casildo'}).click();
   await expect(page).toHaveURL(/\/en#top$/);
 });
 
