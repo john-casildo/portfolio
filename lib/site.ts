@@ -12,7 +12,7 @@ export const site = {
   github: 'https://github.com/john-casildo',
   // Full profile URLs. Leave empty to hide the icon.
   linkedin: 'https://www.linkedin.com/in/john-casildo/',
-  x: 'https://x.com/John_Casildo',
+  x: 'https://x.com/JSONCasildo',
   stack: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'Supabase', 'PostgreSQL', 'FastAPI', 'Docker', 'SwiftUI', 'Jetpack Compose'],
 } as const;
 

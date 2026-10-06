@@ -85,7 +85,7 @@ test('social icons link out with accessible names', async ({page}) => {
   await expect(github).toHaveAttribute('href', 'https://github.com/john-casildo');
   await expect(github).toHaveAttribute('target', '_blank');
   await expect(social.getByRole('link', {name: 'LinkedIn'})).toHaveAttribute('href', 'https://www.linkedin.com/in/john-casildo/');
-  await expect(social.getByRole('link', {name: 'X (Twitter)'})).toHaveAttribute('href', 'https://x.com/John_Casildo');
+  await expect(social.getByRole('link', {name: 'X (Twitter)'})).toHaveAttribute('href', 'https://x.com/JSONCasildo');
   await expect(social.getByRole('link', {name: 'WhatsApp'})).toHaveAttribute('href', 'https://wa.me/50661090625');
   await expect(social.getByRole('link', {name: 'Email'})).toHaveAttribute('href', 'mailto:johnbsns@outlook.com');
   // Contact links appear once: in the contact section, not again in the footer.
