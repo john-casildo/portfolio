@@ -57,13 +57,13 @@ export function MobileMenu({ items, navLabel, openLabel, closeLabel }: Props) {
         className="btn-press flex h-12 w-12 flex-col items-center justify-center gap-[5px] rounded-md border-[3px] border-ink bg-red"
       >
         <span
-          className={`block h-[3px] w-5 rounded bg-white transition-transform duration-150 ${open ? "translate-y-2 rotate-45" : ""}`}
+          className={`block h-[3px] w-5 rounded bg-white transition-transform duration-100 ${open ? "translate-y-2 rotate-45" : ""}`}
         />
         <span
           className={`block h-[3px] w-5 rounded bg-white ${open ? "opacity-0" : ""}`}
         />
         <span
-          className={`block h-[3px] w-5 rounded bg-white transition-transform duration-150 ${open ? "-translate-y-2 -rotate-45" : ""}`}
+          className={`block h-[3px] w-5 rounded bg-white transition-transform duration-100 ${open ? "-translate-y-2 -rotate-45" : ""}`}
         />
       </button>
       {open &&
