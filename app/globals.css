@@ -80,6 +80,8 @@ body {
   box-shadow: 8px 8px 0 var(--color-ink);
   overflow: hidden;
 }
+/* The CV scroll area takes focus when the dialog opens; it's not a control, so no focus ring. */
+.cv-dialog .cv-scroll:focus, .cv-dialog .cv-scroll:focus-visible { outline: none; }
 .cv-dialog::backdrop { background: rgb(11 11 11 / 0.72); }
 .cv-dialog[open] { animation: tip-pop-card 180ms steps(3, end); }
 @keyframes tip-pop-card { 0% { transform: scale(0.94) rotate(-1deg); } 100% { transform: none; } }
