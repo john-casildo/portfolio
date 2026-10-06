@@ -84,7 +84,11 @@
     "repo": "Ver código",
     "live": "Visitar sitio",
     "next": "Siguiente proyecto",
-    "back": "Volver a proyectos"
+    "back": "Volver a proyectos",
+    "ctaTag": "¿te gusta lo que ves?",
+    "ctaTitle": "Construyamos el tuyo",
+    "ctaText": "Cuéntame sobre tu proyecto. Respondo en menos de 48 horas.",
+    "ctaButton": "Hablemos"
   },
   "NotFound": {
     "title": "GAME OVER",
