@@ -37,8 +37,8 @@ export async function Contact() {
           <p className="mt-6 text-lg">{t('intro')}</p>
           <p className="mt-8 font-tag text-xl">{tSocial('label')}</p>
           <SocialLinks className="mt-6" />
-          <a data-testid="resume-download" href={cvHref} download="John_Casildo_CV.pdf" className={`${buttonClass('secondary')} mt-8`}>
-            {tSocial('download')}
+          <a data-testid="cv-open" data-cv-open href={cvHref} target="_blank" rel="noopener noreferrer" className={`${buttonClass('secondary')} mt-8`}>
+            {tSocial('viewCv')}
           </a>
         </div>
         <div className="sticker notebook tilt-r relative p-6">

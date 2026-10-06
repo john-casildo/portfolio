@@ -75,7 +75,7 @@ test('hovering an icon shows its name', async ({page, isMobile}) => {
   await expect(tip).toBeVisible();
   await expect(tip).toHaveText('LinkedIn');
   await page.locator('#contact').getByTestId('social-resume').hover();
-  await expect(page.locator('#contact').getByTestId('social-resume').locator('.social-tip')).toHaveText('Ver mi CV (PDF)');
+  await expect(page.locator('#contact').getByTestId('social-resume').locator('.social-tip')).toHaveText('Ver y descargar mi CV');
 });
 
 test('social icons link out with accessible names', async ({page}) => {
@@ -91,19 +91,41 @@ test('social icons link out with accessible names', async ({page}) => {
   await expect(page.locator('footer').getByTestId('social-github')).toBeVisible();
 });
 
-test('CV can be viewed and downloaded in each language', async ({page, request}) => {
-  for (const [locale, file] of [['en', 'John_Casildo_CV_EN.pdf'], ['es', 'John_Casildo_CV_ES.pdf']]) {
+test('CV opens in a viewer with a download button, in each language', async ({page, request}) => {
+  for (const [locale, file, heading] of [['en', 'John_Casildo_CV_EN.pdf', 'My CV'], ['es', 'John_Casildo_CV_ES.pdf', 'Mi CV']]) {
     await page.goto(`/${locale}#contact`);
-    const section = page.locator('#contact');
-    await expect(section.getByTestId('social-resume')).toHaveAttribute('href', `/cv/${file}`);
-    await expect(section.getByTestId('social-resume')).toHaveAttribute('target', '_blank');
-    const download = section.getByTestId('resume-download').first();
+    const dialog = page.getByTestId('cv-dialog');
+    await expect(dialog).toBeHidden();
+
+    // The résumé icon opens the viewer instead of navigating away.
+    await page.locator('#contact').getByTestId('social-resume').click();
+    await expect(dialog).toBeVisible();
+    await expect(dialog.getByRole('heading', {name: heading})).toBeVisible();
+    await expect(dialog.getByRole('img')).toBeVisible();
+    const download = dialog.getByTestId('cv-download');
     await expect(download).toHaveAttribute('href', `/cv/${file}`);
     await expect(download).toHaveAttribute('download', 'John_Casildo_CV.pdf');
+    await expect(page).toHaveURL(new RegExp(`/${locale}#contact$`));
+
+    await page.keyboard.press('Escape');
+    await expect(dialog).toBeHidden();
+
+    // The "View CV" button opens the same viewer; the close button shuts it.
+    await page.locator('#contact').getByTestId('cv-open').click();
+    await expect(dialog).toBeVisible();
+    await dialog.getByRole('button', {name: locale === 'es' ? 'Cerrar' : 'Close'}).click();
+    await expect(dialog).toBeHidden();
+
     const res = await request.get(`/cv/${file}`);
     expect(res.status()).toBe(200);
     expect(res.headers()['content-type']).toContain('application/pdf');
   }
+});
+
+test('CV links still point at the PDF for no-JS visitors', async ({page}) => {
+  await page.goto('/en#contact');
+  await expect(page.locator('#contact').getByTestId('social-resume')).toHaveAttribute('href', '/cv/John_Casildo_CV_EN.pdf');
+  await expect(page.locator('#contact').getByTestId('cv-open')).toHaveAttribute('href', '/cv/John_Casildo_CV_EN.pdf');
 });
 
 test('spanish labels', async ({page}) => {

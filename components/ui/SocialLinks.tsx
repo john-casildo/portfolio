@@ -19,6 +19,7 @@ export async function SocialLinks({size = 'md', className = ''}: {size?: 'sm' | 
             data-testid={`social-${link.kind}`}
             href={link.href}
             {...(link.external && {target: '_blank', rel: 'noopener noreferrer'})}
+            {...(link.kind === 'resume' && {'data-cv-open': ''})}
             aria-label={t(link.kind as SocialKind)}
             className={`social-badge ${box}`}
             style={{'--tilt': `${TILTS[i % TILTS.length]}deg`} as React.CSSProperties}
