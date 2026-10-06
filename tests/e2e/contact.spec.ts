@@ -106,6 +106,8 @@ test('CV opens in a viewer with a download button, in each language', async ({pa
     await expect(download).toHaveAttribute('href', `/cv/${file}`);
     await expect(download).toHaveAttribute('download', 'John_Casildo_CV.pdf');
     await expect(page).toHaveURL(new RegExp(`/${locale}#contact$`));
+    // Focus goes to the CV, not the download button (whose focus ring would show).
+    await expect(dialog.getByTestId('cv-scroll')).toBeFocused();
 
     await page.keyboard.press('Escape');
     await expect(dialog).toBeHidden();

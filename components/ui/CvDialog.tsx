@@ -66,7 +66,14 @@ export function CvDialog({image, pdfHref, labels}: {image: StaticImageData; pdfH
             </button>
           </div>
         </div>
-        <div className="overflow-y-auto overscroll-contain bg-ink/5 p-3 sm:p-5">
+        {/* Focus lands here when the dialog opens (not on the download button, which would show its
+            focus ring in Safari), so arrow keys scroll the CV right away. */}
+        <div
+          data-testid="cv-scroll"
+          tabIndex={-1}
+          autoFocus
+          className="cv-scroll overflow-y-auto overscroll-contain bg-ink/5 p-3 sm:p-5"
+        >
           {opened && (
             <Image
               src={image}
