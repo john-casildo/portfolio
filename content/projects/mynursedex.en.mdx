@@ -1,0 +1,27 @@
+---
+title: MyNurseDex
+summary: A bilingual (Spanish/English) nursing study reference for a student in Costa Rica — entries built from official sources by an AI pipeline that fact-checks itself.
+role: Solo developer — product design, data pipeline, AI, web app
+stack: [Next.js, TypeScript, Tailwind CSS, Groq, Fuse.js, GitHub Actions]
+cover: /projects/mynursedex.svg
+repo: https://github.com/john-casildo/mynursedex
+live: https://mynursedex.vercel.app
+featured: false
+order: 2
+---
+
+## Problem
+
+A nursing student in Costa Rica studies in Spanish, but most good free references are in English, and her own notes were spread across PDFs and slides. She needed one place to look up a drug, condition, lab or acronym in seconds, on her phone, between classes and clinicals — with no budget.
+
+## What I built
+
+- An ETL pipeline that pulls facts from official and open sources (FDA drug labels, RxNorm, MedlinePlus, OpenStax nursing textbooks), has an LLM draft each entry in Spanish and English, and validates every entry before it can deploy.
+- An automatic fact-check: a second model family checks each point against the full text of its cited sources. Its quotes must exist verbatim in the source and every number in a claim must appear in the quote, so the model can't invent evidence. Results show as ✓ / ⚠ on each entry.
+- Care plans limited to an approved NANDA-I diagnosis list, because models invent plausible-sounding diagnoses.
+- Instant search that handles typos, accents and both languages, running on the phone with no server cost.
+- An "Ask AI" assistant grounded only in the site's own entries, plus topic requests that a nightly GitHub Actions job builds after approval.
+
+## Result
+
+Around 100 bilingual entries on a statically built site at $0/month (free tiers only), including the full acronym list from her obstetrics course. Every entry stays marked as an AI draft until it is reviewed.

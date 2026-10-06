@@ -11,7 +11,7 @@ for (const [locale, services, work, about, contact] of [
     await expect(page.locator('#work').getByRole('heading', {level: 2})).toHaveText(work);
     await expect(page.locator('#about').getByRole('heading', {level: 2})).toHaveText(about);
     await expect(page.locator('#contact').getByRole('heading', {level: 2})).toHaveText(contact);
-    await expect(page.getByTestId('project-card')).toHaveCount(3);
+    await expect(page.getByTestId('project-card')).toHaveCount(4);
     await expect(page.getByTestId('project-card').first()).toContainText('Presencia');
   });
 }
