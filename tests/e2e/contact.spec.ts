@@ -112,6 +112,8 @@ test('CV opens in a viewer with a download button, in each language', async ({pa
 
     await page.keyboard.press('Escape');
     await expect(dialog).toBeHidden();
+    // Focus goes back to the icon that opened it.
+    await expect(page.locator('#contact').getByTestId('social-resume')).toBeFocused();
 
     // The hero CV button opens the same viewer; the close button shuts it.
     await page.getByTestId('hero-cv').click();
@@ -128,6 +130,22 @@ test('CV opens in a viewer with a download button, in each language', async ({pa
 test('there is no separate View CV button', async ({page}) => {
   await page.goto('/es#contact');
   await expect(page.locator('#contact').getByRole('link', {name: 'Ver CV'})).toHaveCount(0);
+});
+
+test('CV viewer: click outside closes it and Tab stays inside', async ({page, isMobile}) => {
+  test.skip(isMobile, 'keyboard and pointer behaviour checked on desktop');
+  await page.goto('/en');
+  await page.getByTestId('hero-cv').click();
+  const dialog = page.getByTestId('cv-dialog');
+  await expect(dialog).toBeVisible();
+  for (let i = 0; i < 6; i++) {
+    await page.keyboard.press('Tab');
+    expect(await dialog.evaluate((d) => d.contains(document.activeElement))).toBe(true);
+  }
+  await page.mouse.click(10, 10); // on the dark overlay
+  await expect(dialog).toBeHidden();
+  await expect(page.getByTestId('cv-overlay')).toBeHidden();
+  await expect(page.getByTestId('hero-cv')).toBeFocused();
 });
 
 test('CV links still point at the PDF for no-JS visitors', async ({page}) => {

@@ -67,7 +67,18 @@ body {
   transform: rotate(0deg) translate(-2px, -2px);
   box-shadow: 6px 6px 0 var(--color-ink);
 }
+.cv-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  background: rgb(11 11 11 / 0.72);
+}
+/* Non-modal dialog (see CvDialog), so it is positioned by hand. */
 .cv-dialog {
+  position: fixed;
+  inset: 0;
+  z-index: 61;
+  height: fit-content;
   width: min(92vw, 900px);
   max-width: none;
   max-height: 92dvh;
@@ -82,7 +93,6 @@ body {
 }
 /* The CV scroll area takes focus when the dialog opens; it's not a control, so no focus ring. */
 .cv-dialog .cv-scroll:focus, .cv-dialog .cv-scroll:focus-visible { outline: none; }
-.cv-dialog::backdrop { background: rgb(11 11 11 / 0.72); }
 .cv-dialog[open] { animation: tip-pop-card 180ms steps(3, end); }
 @keyframes tip-pop-card { 0% { transform: scale(0.94) rotate(-1deg); } 100% { transform: none; } }
 
