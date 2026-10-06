@@ -96,5 +96,13 @@
   },
   "Ticker": {
     "text": "JOHN CASILDO ✱ WEB DEV ✱ SITES ✱ WEB APPS ✱ BACKENDS ✱ FULL STACK ✱"
+  },
+  "Social": {
+    "label": "Find me online",
+    "whatsapp": "WhatsApp",
+    "linkedin": "LinkedIn",
+    "x": "X (Twitter)",
+    "github": "GitHub",
+    "email": "Email"
   }
 }

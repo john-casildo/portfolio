@@ -6,11 +6,13 @@ import {Tape} from '@/components/zine/Tape';
 import {Doodle} from '@/components/zine/Doodle';
 import {NumberSticker} from '@/components/zine/NumberSticker';
 import {Sticker} from '@/components/zine/Sticker';
+import {SocialLinks} from '@/components/ui/SocialLinks';
 import {ContactForm} from './ContactForm';
 import {DirectLinks} from './DirectLinks';
 
 export async function Contact() {
   const t = await getTranslations('Contact');
+  const tSocial = await getTranslations('Social');
   const links = (
     <DirectLinks
       whatsappHref={hasWhatsApp() ? whatsappUrl(t('whatsappPrefill')) : null}
@@ -32,6 +34,8 @@ export async function Contact() {
           <p className="mt-6 text-lg">{t('intro')}</p>
           <p className="mt-8 font-bold">{t('direct')}</p>
           <div className="mt-3">{links}</div>
+          <p className="mt-8 font-tag text-xl">{tSocial('label')}</p>
+          <SocialLinks className="mt-3" />
         </div>
         <div className="sticker notebook tilt-r relative p-6">
           <Tape />

@@ -64,6 +64,18 @@ test('direct links use the real WhatsApp number and email', async ({page}) => {
   await expect(section.getByTestId('email-link').first()).toHaveAttribute('href', 'mailto:johnbsns@outlook.com');
 });
 
+test('social icons link out with accessible names', async ({page}) => {
+  await page.goto('/en#contact');
+  const social = page.locator('#contact').getByRole('list', {name: 'Find me online'});
+  const github = social.getByRole('link', {name: 'GitHub'});
+  await expect(github).toHaveAttribute('href', 'https://github.com/john-casildo');
+  await expect(github).toHaveAttribute('target', '_blank');
+  await expect(social.getByRole('link', {name: 'LinkedIn'})).toHaveAttribute('href', 'https://www.linkedin.com/in/john-casildo/');
+  await expect(social.getByRole('link', {name: 'WhatsApp'})).toHaveAttribute('href', 'https://wa.me/50661090625');
+  await expect(social.getByRole('link', {name: 'Email'})).toHaveAttribute('href', 'mailto:johnbsns@outlook.com');
+  await expect(page.locator('footer').getByTestId('social-github')).toBeVisible();
+});
+
 test('spanish labels', async ({page}) => {
   await page.goto('/es#contact');
   const form = page.getByTestId('contact-form');
