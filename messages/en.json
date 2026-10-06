@@ -103,6 +103,8 @@
     "linkedin": "LinkedIn",
     "x": "X (Twitter)",
     "github": "GitHub",
-    "email": "Email"
+    "email": "Email",
+    "resume": "View my CV (PDF)",
+    "download": "Download CV"
   }
 }

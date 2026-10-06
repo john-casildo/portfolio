@@ -1,4 +1,4 @@
-export type SocialKind = 'whatsapp' | 'linkedin' | 'x' | 'github' | 'email';
+export type SocialKind = 'whatsapp' | 'linkedin' | 'x' | 'github' | 'email' | 'resume';
 
 const INK = '#0B0B0B';
 // `currentColor` is the accent (red at rest, ink on hover); inner marks stay paper.
@@ -9,6 +9,15 @@ const line = {stroke: INK, strokeWidth: 3, strokeLinejoin: 'round', strokeLineca
 const thin = {...line, strokeWidth: 2} as const;
 
 const ART: Record<SocialKind, React.ReactNode> = {
+  resume: (
+    <>
+      <path d="M10 5 H30 L39 14 V43 H10 Z" fill={PAPER} {...line} />
+      <path d="M30 5 V14 H39 Z" fill={ACCENT} {...line} />
+      <path d="M15 20 H27 M15 26 H33 M15 32 H33 M15 38 H24" fill="none" stroke={INK} strokeWidth={2.5} strokeLinecap="round" />
+      <circle cx="35" cy="38" r="7" fill={ACCENT} {...line} strokeWidth={2.5} />
+      <path d="M32 38 L34.5 40.5 L38.5 35.5" fill="none" stroke={PAPER} strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round" />
+    </>
+  ),
   whatsapp: (
     <>
       <path d="M9 42 L12.5 31 L21 37 Z" fill={ACCENT} {...line} />

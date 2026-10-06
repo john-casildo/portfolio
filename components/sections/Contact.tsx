@@ -1,6 +1,6 @@
-import {getTranslations} from 'next-intl/server';
+import {getLocale, getTranslations} from 'next-intl/server';
 import {SectionHeading} from '@/components/ui/SectionHeading';
-import {hasWhatsApp, site, whatsappUrl} from '@/lib/site';
+import {hasWhatsApp, resumeUrl, site, whatsappUrl} from '@/lib/site';
 import {ThrowUp} from '@/components/zine/Graffiti';
 import {Tape} from '@/components/zine/Tape';
 import {Doodle} from '@/components/zine/Doodle';
@@ -19,6 +19,8 @@ export async function Contact() {
       whatsappLabel={t('whatsapp')}
       email={site.email}
       emailLabel={t('emailCta')}
+      resumeHref={resumeUrl(await getLocale())}
+      resumeLabel={tSocial('download')}
     />
   );
   return (

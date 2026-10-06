@@ -12,7 +12,7 @@ export const site = {
   github: 'https://github.com/john-casildo',
   // Full profile URLs. Leave empty to hide the icon.
   linkedin: 'https://www.linkedin.com/in/john-casildo/',
-  x: '',
+  x: 'https://x.com/John_Casildo',
   stack: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'Supabase', 'PostgreSQL', 'FastAPI', 'Docker', 'SwiftUI', 'Jetpack Compose'],
 } as const;
 
@@ -37,4 +37,9 @@ export function socialLinks(profile: {whatsapp: string; linkedin: string; x: str
     profile.email ? {kind: 'email', href: `mailto:${profile.email}`, external: false} : null,
   ];
   return links.filter((l): l is SocialLink => l !== null);
+}
+
+/** Path to the CV PDF for a locale (served from public/cv). */
+export function resumeUrl(locale: string): string {
+  return `/cv/John_Casildo_CV_${locale === 'es' ? 'ES' : 'EN'}.pdf`;
 }

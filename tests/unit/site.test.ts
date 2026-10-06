@@ -1,5 +1,5 @@
 import {describe, expect, test} from 'vitest';
-import {hasWhatsApp, socialLinks, whatsappUrl} from '@/lib/site';
+import {hasWhatsApp, resumeUrl, socialLinks, whatsappUrl} from '@/lib/site';
 
 describe('hasWhatsApp', () => {
   test('rejects the all-zero placeholder', () => expect(hasWhatsApp('0000000000')).toBe(false));
@@ -35,5 +35,12 @@ describe('socialLinks', () => {
   test('skips profiles that are not set', () => {
     const kinds = socialLinks({...profile, whatsapp: '0000000000', linkedin: '', x: ''}).map((l) => l.kind);
     expect(kinds).toEqual(['github', 'email']);
+  });
+});
+
+describe('resumeUrl', () => {
+  test('serves the Spanish CV on /es and English otherwise', () => {
+    expect(resumeUrl('es')).toBe('/cv/John_Casildo_CV_ES.pdf');
+    expect(resumeUrl('en')).toBe('/cv/John_Casildo_CV_EN.pdf');
   });
 });

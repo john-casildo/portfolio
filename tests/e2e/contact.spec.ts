@@ -71,9 +71,25 @@ test('social icons link out with accessible names', async ({page}) => {
   await expect(github).toHaveAttribute('href', 'https://github.com/john-casildo');
   await expect(github).toHaveAttribute('target', '_blank');
   await expect(social.getByRole('link', {name: 'LinkedIn'})).toHaveAttribute('href', 'https://www.linkedin.com/in/john-casildo/');
+  await expect(social.getByRole('link', {name: 'X (Twitter)'})).toHaveAttribute('href', 'https://x.com/John_Casildo');
   await expect(social.getByRole('link', {name: 'WhatsApp'})).toHaveAttribute('href', 'https://wa.me/50661090625');
   await expect(social.getByRole('link', {name: 'Email'})).toHaveAttribute('href', 'mailto:johnbsns@outlook.com');
   await expect(page.locator('footer').getByTestId('social-github')).toBeVisible();
+});
+
+test('CV can be viewed and downloaded in each language', async ({page, request}) => {
+  for (const [locale, file] of [['en', 'John_Casildo_CV_EN.pdf'], ['es', 'John_Casildo_CV_ES.pdf']]) {
+    await page.goto(`/${locale}#contact`);
+    const section = page.locator('#contact');
+    await expect(section.getByTestId('social-resume')).toHaveAttribute('href', `/cv/${file}`);
+    await expect(section.getByTestId('social-resume')).toHaveAttribute('target', '_blank');
+    const download = section.getByTestId('resume-download').first();
+    await expect(download).toHaveAttribute('href', `/cv/${file}`);
+    await expect(download).toHaveAttribute('download', 'John_Casildo_CV.pdf');
+    const res = await request.get(`/cv/${file}`);
+    expect(res.status()).toBe(200);
+    expect(res.headers()['content-type']).toContain('application/pdf');
+  }
 });
 
 test('spanish labels', async ({page}) => {

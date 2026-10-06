@@ -1,13 +1,13 @@
-import {getTranslations} from 'next-intl/server';
+import {getLocale, getTranslations} from 'next-intl/server';
 import {SocialIcon, type SocialKind} from '@/components/zine/SocialIcon';
-import {socialLinks} from '@/lib/site';
+import {resumeUrl, socialLinks} from '@/lib/site';
 
 // Alternating tilts so the row reads like stickers slapped on, not a toolbar.
-const TILTS = [-4, 3, -2, 4, -3];
+const TILTS = [-4, 3, -2, 4, -3, 2];
 
 export async function SocialLinks({size = 'md', className = ''}: {size?: 'sm' | 'md'; className?: string}) {
   const t = await getTranslations('Social');
-  const links = socialLinks();
+  const links = [...socialLinks(), {kind: 'resume' as const, href: resumeUrl(await getLocale()), external: true}];
   const box = size === 'sm' ? 'size-12' : 'size-14';
   const icon = size === 'sm' ? 30 : 36;
 
