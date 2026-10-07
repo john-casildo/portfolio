@@ -36,7 +36,7 @@ describe('project loader', () => {
   test('real content is valid and Presencia is the featured project', () => {
     expect(() => validateContent()).not.toThrow();
     const en = getProjects('en');
-    expect(en.map((p) => p.slug).sort()).toEqual(['maruchan-university', 'mynursedex', 'presencia', 'stub']);
+    expect(en.map((p) => p.slug).sort()).toEqual(['encore', 'maruchan-university', 'mynursedex', 'presencia', 'stub']);
     expect(en.filter((p) => p.featured).map((p) => p.slug)).toEqual(['presencia']);
   });
 });
