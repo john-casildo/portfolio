@@ -60,7 +60,7 @@ for (const slug of ['mynursedex', 'presencia']) {
   test(`${slug} case study shows its screenshots`, async ({page}) => {
     await page.goto(`/es/projects/${slug}`);
     const shots = page.getByTestId('gallery').getByRole('img');
-    await expect(shots).toHaveCount(3);
+    await expect(shots).toHaveCount(slug === 'presencia' ? 9 : 3);
     for (const img of await shots.all()) {
       await img.scrollIntoViewIfNeeded();
       await expect.poll(() => img.evaluate((el: HTMLImageElement) => el.complete && el.naturalWidth > 0)).toBe(true);
