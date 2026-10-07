@@ -38,7 +38,7 @@ test.describe('phone width', () => {
         const clipped = (el: Element) => {
           for (let p = el.parentElement; p && p !== document.body; p = p.parentElement) {
             const s = getComputedStyle(p);
-            if (['hidden', 'clip'].includes(s.overflowX)) {
+            if (['hidden', 'clip', 'auto', 'scroll'].includes(s.overflowX)) {
               const r = p.getBoundingClientRect();
               if (r.left >= -1 && r.right <= vw + 1) return true;
             }
