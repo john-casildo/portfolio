@@ -12,27 +12,28 @@ order: 1
 
 ## Problema
 
-Los líderes de grupos pequeños registraban la asistencia en papel y por chat. No se veían tendencias y los informes para la iglesia tomaban horas.
+Los líderes de grupos pequeños registraban la asistencia en papel y por chat, y armar el informe semanal para el pastor tomaba horas.
 
 ## Lo que construí
 
-- Apps nativas de iOS (SwiftUI) y Android (Jetpack Compose) que comparten un backend en Supabase/PostgreSQL con seguridad a nivel de fila.
+- Apps nativas de iOS (SwiftUI) y Android (Jetpack Compose) que comparten un backend en Supabase/PostgreSQL.
 - Un modelo centrado en la reunión: cada reunión precarga la asistencia de los miembros activos, así el líder registra una sesión en segundos.
-- Tipos de actividad dinámicos (globales, por campo o por iglesia) y un flujo para ayudantes que envían sin cuenta.
+- Tipos de actividad en tres niveles (unión, iglesia y los propios del grupo) y un flujo de suplente: un código de 6 dígitos permite a un ayudante registrar la reunión durante 24 horas, y el líder la aprueba.
+- Cuentas también para los miembros: sus actividades, dúos misioneros, estudios bíblicos y asistencia al culto de sábado.
 - Una landing page con un teléfono 3D animado con el scroll, hecho en Three.js, con alternativas en CSS.
 
 <Gallery>
   <Shot src="/projects/shots/presencia-home.webp" alt="Portada de la landing de Presencia: registra la asistencia en segundos, no en hojas de cálculo." caption="Landing page" />
-  <Shot src="/projects/shots/presencia-attendance.webp" alt="Maqueta de la app con una reunión de GP y miembros presentes, justificados y ausentes." caption="Asistencia con un toque" />
-  <Shot src="/projects/shots/presencia-roles.webp" alt="Sección que muestra lo que ve cada rol, desde el líder de grupo hasta la unión." caption="Una vista para cada rol" />
+  <Shot src="/projects/shots/presencia-roles.webp" alt="Sección de la landing que muestra lo que pueden hacer los líderes y los miembros." caption="Una vista para cada rol" />
   <Shot src="/projects/shots/presencia-android-home.webp" alt="Inicio del líder en la app de Android, con el botón para tomar asistencia." caption="Inicio del líder" />
   <Shot src="/projects/shots/presencia-android-attendance.webp" alt="Paso de asistencia en Android: miembros presentes, ausentes o justificados." caption="Tomar asistencia" />
   <Shot src="/projects/shots/presencia-android-activities.webp" alt="Paso de actividades en Android con las actividades de la unión y sus cantidades." caption="Registrar actividades" />
   <Shot src="/projects/shots/presencia-android-summary.webp" alt="Resumen de la reunión en Android, listo para enviar al pastor." caption="Resumen antes de enviar" />
   <Shot src="/projects/shots/presencia-android-history.webp" alt="Historial en Android con estadísticas del trimestre y reuniones enviadas." caption="Historial de reuniones" />
   <Shot src="/projects/shots/presencia-android-deputy.webp" alt="Pantalla de suplente en Android con un código de 6 dígitos válido por 24 horas." caption="Código de suplente" />
+  <Shot src="/projects/shots/presencia-android-visitor.webp" alt="Hoja de Android para agregar una visita, que sugiere a una visita anterior por su nombre." caption="Agregar una visita" />
 </Gallery>
 
 ## Resultado
 
-Los líderes toman asistencia en menos de un minuto y ven gráficas por grupo, y un solo backend sirve a ambas plataformas.
+Los líderes registran toda la reunión y la envían a su pastor de una vez, y un solo backend sirve a ambas plataformas.
