@@ -13,7 +13,7 @@ export const site = {
   // Full profile URLs. Leave empty to hide the icon.
   linkedin: 'https://www.linkedin.com/in/john-casildo/',
   x: 'https://x.com/JSONCasildo',
-  stack: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'Supabase', 'PostgreSQL', 'FastAPI', 'Docker', 'SwiftUI', 'Jetpack Compose'],
+  stack: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'Supabase', 'PostgreSQL', 'FastAPI', 'Docker', 'SwiftUI', 'Jetpack Compose', 'Figma'],
 } as const;
 
 /** True for a real international number (digits only, 8–15 long, not the all-zero placeholder). */
