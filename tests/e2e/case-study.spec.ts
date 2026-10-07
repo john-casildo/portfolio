@@ -1,6 +1,6 @@
 import {expect, test} from '@playwright/test';
 
-const SLUGS = ['presencia', 'mynursedex', 'maruchan-university', 'stub'];
+const SLUGS = ['presencia', 'mynursedex', 'maruchan-university', 'stub', 'encore'];
 
 for (const locale of ['en', 'es']) {
   for (const slug of SLUGS) {

@@ -5,6 +5,7 @@ COVERS = {
     'presencia': ('PRESENCIA', 'iOS + Android + Supabase'),
     'maruchan-university': ('MARUCHAN U.', 'FastAPI + PostgreSQL'),
     'stub': ('STUB', 'Flutter + OCR'),
+    'encore': ('ENCORE', 'SwiftUI + Supabase'),
 }
 
 TEMPLATE = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750">
