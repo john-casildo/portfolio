@@ -1,6 +1,7 @@
 import {
   siDocker,
   siFastapi,
+  siFigma,
   siJetpackcompose,
   siNextdotjs,
   siPostgresql,
@@ -24,6 +25,7 @@ const ICONS: Record<string, SimpleIcon> = {
   Docker: siDocker,
   SwiftUI: siSwift,
   'Jetpack Compose': siJetpackcompose,
+  Figma: siFigma,
 };
 
 /** Tool logos as tilted sticker tiles; names show on hover (desktop) or under each logo (phones). */

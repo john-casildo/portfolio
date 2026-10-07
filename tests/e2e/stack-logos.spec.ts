@@ -8,7 +8,7 @@ test.beforeEach(async ({page}) => {
   });
 });
 
-const STACK = ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'Supabase', 'PostgreSQL', 'FastAPI', 'Docker', 'SwiftUI', 'Jetpack Compose'];
+const STACK = ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'Supabase', 'PostgreSQL', 'FastAPI', 'Docker', 'SwiftUI', 'Jetpack Compose', 'Figma'];
 
 test('about shows a logo for every tool, each with its name for screen readers', async ({page}) => {
   await page.goto('/en');
